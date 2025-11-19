@@ -1,0 +1,2552 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    <div id="inventorySystem">
+        <div id="inventory" class="fadeBorder value">
+            <div id="inventorySearch">
+                <input oninput="searchInventory(event)" id="inventorySearchField" placeholder="Search">
+                <div class="searchIcon"></div>
+            </div>
+            <div class="fadeBorder" id="inventoryClose" onclick="closeInventory()">
+                <div class="close"></div>
+            </div>
+            <div class="filters">
+                <div class="upper">
+                    <div id="options">
+                        <button class="fadeBorder" id="inventoryDetail" onclick="changeDetail(event)"
+                            ontouchend="removeBorder(event)" ontouchstart="addBorder(event)">
+                            <p>Standard</p>
+                        </button>
+                        <button class="fadeBorder" id="inventoryFullscreen" onclick="changeFullscreen(event)"
+                            ontouchend="removeBorder(event)" ontouchstart="addBorder(event)">
+                            <p>Categories</p>
+                        </button>
+                    </div>
+                    <div id="inventoryFilters" scroll="0" onwheel="scrollHorizontally(event)"
+                        onscroll="fadeEffectOnFilters()">
+                        <button onclick="selectFilter(event)" class="all selected fadeBorder">
+                            <p>All</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="pets fadeBorder">
+                            <p>Pets</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="petsRarity legendary fadeBorder">
+                            <p>Legendary</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="petsRarity ultra-rare fadeBorder">
+                            <p>Ultra Rare</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="petsRarity rare fadeBorder">
+                            <p>Rare</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="petsRarity uncommon fadeBorder">
+                            <p>Uncommon</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="petsRarity common fadeBorder">
+                            <p>Common</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="eggs fadeBorder">
+                            <p>Eggs</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="vehicles fadeBorder">
+                            <p>Vehicles</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="pet-wear fadeBorder">
+                            <p>Pet Wear</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="other fadeBorder">
+                            <p>Other</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="food fadeBorder">
+                            <p>Food</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="strollers fadeBorder">
+                            <p>Strollers</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="toys fadeBorder">
+                            <p>Toys</p>
+                        </button>
+                        <button onclick="selectFilter(event)" class="favorites fadeBorder">
+                            <p>Favorites</p>
+                        </button>
+
+                    </div>
+                </div>
+                <div id="inventoryFiltersScroll" style="display:none">
+                    <button class="left fadeBorder" onclick="inventoryFiltersScroll(event)">
+                        <div class="image reverse"></div>
+                    </button>
+                    <p id="inventoryFilterScrollNumber">1</p>
+                    <button class="right fadeBorder" onclick="inventoryFiltersScroll(event)">
+                        <div class="image"></div>
+                    </button>
+                </div>
+            </div>
+            <div id="inventoryPets" onwheel="scrollInventoryPets(event)" onscroll="scrollInventoryPets(event)">
+
+                <div class="pet fadeBorder">
+                    <p class="name">Name</p>
+                    <img class="image" src="/images/pets/Bat Dragon.png">
+                    <p class="value">69</p>
+                </div>
+
+            </div>
+            <div id="inventoryAttributes">
+                <div id="inventoryAdoptMeAttributes">
+                    <button class="fly" onclick="selectAttribute(event)">F</button>
+                    <button class="ride" onclick="selectAttribute(event)">R</button>
+                    <button class="default selected" onclick="selectAttribute(event)">D</button>
+                    <button class="neon" onclick="selectAttribute(event)">N</button>
+                    <button class="mega" onclick="selectAttribute(event)">M</button>
+                </div>
+                <div id="inventoryGrowAGardenAttributes">
+                    <div oncontextmenu="removeInput(event)" class="attributeSection fadeBorder">
+                        <input type="text" oncontextmenu="removeInput(event)" oninput="addKilos(event)"
+                            id="inventoryGrowAGardenWeight" class="weight" placeholder="Weight">
+                    </div>
+
+                    <div oncontextmenu="removeInput(event)" class="attributeSection fadeBorder">
+                        <input type="text" oninput="addAge(event)" id="inventoryGrowAGardenAge" class="age"
+                            placeholder="Age">
+                    </div>
+
+                    <button oncontextmenu="removeMutation(event)" id="inventoryMutation" class="mutation fadeBorder"
+                        onclick="openMutationMenu(event)">
+                        <p>Mutation</p>
+                    </button>
+                </div>
+            </div>
+            <div id="inventoryPetsScrollbar">
+                <div class="thumb fadeBorder" id="inventoryPetsThumb"></div>
+            </div>
+        </div>
+
+        <div id="inventoryBackground" onclick="closeInventory()"></div>
+
+        <div id="mutationMenu" class="fadeBorder">
+            <div class="upper">
+                <h1 class="title">Select Mutation</h1>
+                <div class="options" id="mutationOptions" onwheel="scrollMutations(event)"
+                    onscroll="scrollMutations(event)">
+                    <button class="ascended fadeBorder" onclick="selectMutation('Ascended')">Ascended</button>
+                    <button class="frozen fadeBorder" onclick="selectMutation('Frozen')">Frozen</button>
+                    <button class="golden fadeBorder" onclick="selectMutation('Golden')">Golden</button>
+                    <button class="inverted fadeBorder" onclick="selectMutation('Inverted')">Inverted</button>
+                    <button class="ironskin fadeBorder" onclick="selectMutation('Ironskin')">IronSkin</button>
+                    <button class="mega fadeBorder" onclick="selectMutation('Mega')">Mega</button>
+                    <button class="radiant fadeBorder" onclick="selectMutation('Radiant')">Radiant</button>
+                    <button class="rainbow fadeBorder" onclick="selectMutation('Rainbow')">Rainbow</button>
+                    <button class="shiny fadeBorder" onclick="selectMutation('Shiny')">Shiny</button>
+                    <button class="shocked fadeBorder" onclick="selectMutation('Shocked')">Shocked</button>
+                    <button class="tiny fadeBorder" onclick="selectMutation('Tiny')">Tiny</button>
+                    <button class="windy fadeBorder" onclick="selectMutation('Windy')">Windy</button>
+                    <button class="corrupted fadeBorder" onclick="selectMutation('Corrupted')">Corrupted</button>
+                    <button class="tranquil fadeBorder" onclick="selectMutation('Tranquil')">Tranquil</button>
+                    <button class="fried fadeBorder" onclick="selectMutation('Fried')">Fried</button>
+                    <button class="aromatic fadeBorder" onclick="selectMutation('Aromatic')">Aromatic</button>
+                    <button class="giantbean fadeBorder" onclick="selectMutation('GiantBean')">GiantBean</button>
+                    <button class="glimmering fadeBorder" onclick="selectMutation('Glimmering')">Glimmering</button>
+                    <button class="luminous fadeBorder" onclick="selectMutation('Luminous')">Luminous</button>
+                    <button class="silver fadeBorder" onclick="selectMutation('Silver')">Silver</button>
+                </div>
+            </div>
+            <button class="back fadeBorder" onclick="closeMutationMenu()">Back</button>
+        </div>
+
+        <div id="mutationBackground" onclick="closeMutationMenu()"></div>
+
+        <div id="inventoryPetWidthCalculator"></div>
+
+    </div>
+
+
+    <script>
+        let inventory = undefined
+        let inventoryFilters = undefined
+        let inventoryFilterScrollNumber = undefined
+        let inventoryPets = undefined
+        let inventoryTrack = undefined
+        let inventoryThumb = undefined
+        let inventoryDetail = undefined
+        let inventoryFullscreen = undefined
+        let inventoryFiltersScrollDiv = undefined
+        let inventoryMutation = undefined
+        let inventoryPetWidthCalculator = undefined
+        let mutationMenu = undefined
+        let mutationBackground = undefined
+        let inventoryBackground = undefined
+        let inventorySystem = undefined
+        let body = undefined
+        var dragging = ""
+        let zoom = 1
+
+        let game = "Adopt Me"
+
+        let inventoryPetsRect = undefined;
+        let inventoryPetsScrollHeight = 0
+        let inventoryPetsScrollTop = 0
+
+        let inventoryButtonHeight = 0
+        let inventoryFiltersGap = 0
+
+
+        let loaded = false
+        let inventoryLoaded = false
+        let inventoryIsOpen = false
+
+        let allPetsElements = [];
+        let renderedStart = -1;
+        let renderedEnd = -1;
+        let petWidth = 0;
+        let petHeight = 0;
+        let petGap = 0;
+
+
+
+        let favorites = localStorage.getItem("favorites") || undefined
+        if (favorites) {
+            favorites = JSON.parse(favorites)
+        }
+        else {
+            favorites = []
+        }
+
+        let favoritesGAG = localStorage.getItem("favoritesGAG") || undefined
+        if (favoritesGAG) {
+            favoritesGAG = JSON.parse(favoritesGAG)
+        }
+        else {
+            favoritesGAG = []
+        }
+
+        const resizeObserver = new ResizeObserver(entries => {
+            for (const entry of entries) {
+                const el = entry.target;
+                updateSVG(el)
+            }
+        });
+
+
+        window.addEventListener("DOMContentLoaded", () => {
+            inventory = document.getElementById("inventory")
+            inventoryFilters = document.getElementById("inventoryFilters")
+            inventoryFilterScrollNumber = document.getElementById("inventoryFilterScrollNumber")
+            inventoryPets = document.getElementById("inventoryPets")
+            inventoryTrack = document.getElementById("inventoryPetsScrollbar")
+            inventoryThumb = document.getElementById("inventoryPetsThumb")
+            inventoryDetail = document.getElementById("inventoryDetail")
+            inventoryFullscreen = document.getElementById("inventoryFullscreen")
+            inventoryFiltersScrollDiv = document.getElementById("inventoryFiltersScroll")
+            inventoryMutation = document.getElementById("inventoryMutation")
+            inventoryPetWidthCalculator = document.getElementById("inventoryPetWidthCalculator")
+            mutationMenu = document.getElementById("mutationMenu")
+            mutationBackground = document.getElementById("mutationBackground")
+            inventoryBackground = document.getElementById("inventoryBackground")
+            inventorySystem = document.getElementById("inventorySystem")
+            body = document.querySelector("body")
+
+            // Ensure inventory starts closed
+            inventory.style.display = "none"
+            inventoryBackground.style.display = "none"
+            inventory.style.opacity = "0"
+            inventoryBackground.style.opacity = "0"
+
+            loaded = true
+
+            inventoryPetsRect = inventoryPets.getBoundingClientRect();
+            inventoryPetsScrollHeight = inventoryPets.scrollheight
+            inventoryPetsScrollTop = inventoryPets.scrollTop
+
+
+            inventoryButtonHeight = inventoryFilters.children[0].clientHeight
+            inventoryFiltersGap = 0
+
+
+
+            calibrateMobile()
+
+            game = getCookie("game")
+
+
+            window.addEventListener('resize', () => {
+                calibrateMobile()
+                detectZoom()
+
+            });
+
+
+
+            let inventoryThumbIsDragging = false;
+            let inventoryThumbOffsetY = 0;
+
+            inventoryThumb.addEventListener('mousedown', (e) => {
+                inventoryThumbIsDragging = true;
+
+                // Calculate the offset from the top of the thumb to the click position
+                const thumbRect = inventoryThumb.getBoundingClientRect();
+                inventoryThumbOffsetY = e.clientY - thumbRect.top;
+
+                document.body.style.userSelect = 'none';
+            });
+
+
+
+            document.addEventListener('mousemove', (e) => {
+                if (!inventoryThumbIsDragging) return;
+
+                const trackRect = inventoryTrack.getBoundingClientRect();
+                const thumbHeight = inventoryThumb.offsetHeight;
+
+                // Calculate new top position of the thumb based on mouse and offset
+                let newThumbTop = e.clientY - trackRect.top - inventoryThumbOffsetY;
+
+                // Clamp to track bounds
+                const maxThumbTop = inventoryTrack.clientHeight - thumbHeight;
+                newThumbTop = Math.max(0, Math.min(newThumbTop, maxThumbTop));
+
+
+
+                // Convert thumb position to scroll position
+                const scrollRatio = newThumbTop / maxThumbTop;
+                const maxScroll = inventoryPets.scrollHeight - inventoryPets.clientHeight;
+                inventoryPets.scrollTop = scrollRatio * maxScroll;
+            });
+
+            document.addEventListener('mouseup', () => {
+                inventoryThumbIsDragging = false;
+                document.body.style.userSelect = '';
+            });
+
+
+
+            updateThumb();
+
+
+            Promise.all([fetchPets, fetchGagPets]).then(async () => {
+                //loadPets("Grow a Garden")
+                //loadPets("Adopt Me")
+
+                if (window.self == window.top) {
+                    loadInPets()
+                    setTimeout(() => {
+                        openInventory()
+                    }, 1000)
+                }
+
+
+            })
+
+
+            inventoryPets.addEventListener("scroll", () => {
+                const now = performance.now();
+                const scrollTop = inventoryPets.scrollTop;
+
+                updateThumb()
+
+                if (Math.abs(scrollTop - lastScrollTop) > petHeight || now - lastRenderTime > 100) {
+                    lastRenderTime = now;
+                    lastScrollTop = scrollTop;
+                    renderVisiblePets();
+                }
+            });
+
+
+            const orientation = window.matchMedia("(orientation: landscape)");
+
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                mutationMenu.addEventListener("mousedown", start_drag)
+                mutationMenu.addEventListener("touchstart", start_drag)
+                mutationBackground.addEventListener("touchstart", start_drag)
+            }
+
+            orientation.addEventListener("change", () => {
+                if (window.matchMedia("(orientation: portrait)").matches) {
+                    mutationMenu.addEventListener("mousedown", start_drag)
+                    mutationMenu.addEventListener("touchstart", start_drag)
+                    mutationBackground.addEventListener("touchstart", start_drag)
+                } else {
+                    mutationMenu.removeEventListener("mousedown", start_drag)
+                    mutationMenu.removeEventListener("touchstart", start_drag)
+                    mutationBackground.removeEventListener("touchstart", start_drag)
+                }
+            })
+
+
+
+
+            const mutationOptions = document.getElementById("mutationOptions")
+
+        })
+
+
+        function calibrateMobile() {
+            if (!loaded) { return; }
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                const internalZoom = Math.max(1080 / window.innerWidth, 1920 / window.innerHeight);
+                inventorySystem.style.setProperty('--internalZoom', internalZoom);
+            }
+        }
+
+
+
+        function setCookie(name, value, days) {
+            if (!loaded) { return; }
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+        }
+
+
+        function getCookie(name) {
+            if (!loaded) return "";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookies = decodedCookie.split(';');
+            name = name + "=";
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trimStart();
+                if (cookie.indexOf(name) === 0) {
+                    return cookie.substring(name.length);
+                }
+            }
+            return "";
+        }
+
+        function detectZoom() {
+            if (!loaded) { return; }
+            zoom = Math.floor((window.outerWidth / window.innerWidth) * 100) / 100
+            const isMac = /MacIntel/.test(navigator.platform);
+
+            let pixelRatio;
+
+            if (isMac) {
+                zoom /= 1.53
+                zoom *= 1.25
+                document.documentElement.style.setProperty('--zoomIfMac', 1.25);
+                pixelRatio = 1.25
+            } else {
+                pixelRatio = window.devicePixelRatio / zoom
+            }
+
+
+
+            document.documentElement.style.setProperty('--devicePixelRatio', pixelRatio);
+
+
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                document.documentElement.style.setProperty('--zoom', 1);
+            } else {
+                document.documentElement.style.setProperty('--zoom', zoom.toFixed(4));
+            }
+
+            inventoryPetsRect = inventoryPets.getBoundingClientRect();
+            inventoryPetsScrollHeight = inventoryPets.scrollheight
+            inventoryPetsScrollTop = inventoryPets.scrollTop
+
+            inventoryButtonHeight = inventoryFilters.children[0].getBoundingClientRect().height
+            inventoryFiltersGap = parseFloat(getComputedStyle(inventoryFilters.children[0]).marginBottom.split("px")[0])
+
+            let maxScroll = 0
+            for (let i = 0; i < inventoryFilters.children.length; i++) {
+                if (!inventoryFilters.children[i].classList.contains("petsRarity") || (inventory.classList.contains("pets") || inventory.classList.contains("petsRarity"))) {
+                    maxScroll++
+                }
+            }
+
+
+            const scrollAmount = Math.max(1, Math.floor(inventoryFilters.clientHeight / (inventoryButtonHeight + inventoryFiltersGap)))
+
+            if (parseInt(inventoryFilters.getAttribute("scroll")) > maxScroll) {
+                inventoryFilters.setAttribute("scroll", maxScroll - scrollAmount)
+            }
+
+            const scroll = parseInt(inventoryFilters.getAttribute("scroll"))
+            const filterButtonsCount = [...inventoryFilters.children].filter(el => el.clientHeight != 0).length;
+            var scrollNumber = Math.ceil(scroll / scrollAmount) + 1
+            if (scrollNumber == 0) { scrollNumber++ }
+            inventoryFilterScrollNumber.textContent = scrollNumber
+
+
+            if ((inventoryButtonHeight + inventoryFiltersGap) * filterButtonsCount < inventoryFilters.clientHeight) {
+                inventoryFiltersScrollDiv.style.display = "none"
+
+                inventoryFilters.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+
+                inventoryFilters.setAttribute("scroll", 0)
+            } else {
+                inventoryFiltersScrollDiv.style.display = "flex"
+
+                inventoryFilters.scrollTo({
+                    top: scroll * (inventoryButtonHeight + inventoryFiltersGap),
+                    behavior: 'smooth'
+                });
+            }
+
+            inventoryThumb.style.height = "";
+            measurePetSize()
+
+            renderVisiblePets()
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                fadeEffectOnFilters()
+            } else {
+                fadeEffectVertically(inventoryFilters)
+            }
+
+        }
+
+        function updateThumb(forceSmall = false) {
+            if (!loaded) { return; }
+            const trackHeight = inventoryTrack.getBoundingClientRect().height;
+            const petsBox = inventoryPets.getBoundingClientRect();
+
+            const visiblePets = allPetsElements.filter(pet =>
+                pet.getAttribute("hide") === "false" && pet.getAttribute("hide2") === "false"
+            );
+
+
+            if (petHeight === 0 || inventoryPets.scrollHeight <= inventoryPets.clientHeight) {
+                inventoryThumb.style.height = "100%";
+                inventoryThumb.style.top = "0px";
+                inventoryPets.style.maskImage = "none";
+                inventoryPets.style.webkitMaskImage = "none";
+                return;
+            }
+
+            let petsPerRow = Math.floor(petsBox.width / (petWidth + petGap));
+            if (petsPerRow === 0) petsPerRow++;
+
+
+            const totalRows = Math.ceil(visiblePets.length / petsPerRow);
+            const rowHeight = petHeight + petGap;
+            const contentHeight = totalRows * rowHeight;
+            const visibleHeight = petsBox.height;
+            const scrollTop = inventoryPets.scrollTop;
+
+            const rawThumbHeight = trackHeight * (visibleHeight / contentHeight);
+            const minHeight = parseFloat(getComputedStyle(inventoryThumb).minHeight) || 0;
+            const thumbHeight = Math.max(minHeight, rawThumbHeight);
+
+            inventoryThumb.style.height = `${thumbHeight}px`;
+
+            const scrollMax = contentHeight - visibleHeight;
+            const thumbScrollRange = trackHeight - thumbHeight;
+            const scrollRatio = scrollMax > 0 ? scrollTop / scrollMax : 0;
+
+            inventoryThumb.style.top = `${scrollRatio * thumbScrollRange}px`;
+
+            // Fade effect update
+            //let stopDefault = 70;
+            //const style = getComputedStyle(inventoryPets);
+            //const rawMask = style.maskImage || style.webkitMaskImage;
+            //const match = rawMask.match(/black\s+([\d.]+)%/);
+            //if (match) {
+            //   stopDefault = parseFloat(match[1]);
+            //}
+
+            // Compute fadeDistance in px based on visibleHeight
+            //const fadeDistancePx = (100 - stopDefault) / 100 * visibleHeight;
+
+            //const scrollRemaining = contentHeight - scrollTop - visibleHeight;
+            //let stop = stopDefault;
+
+            //if (scrollRemaining < fadeDistancePx) {
+            //    const fadeRatio = scrollRemaining / fadeDistancePx;
+            //    stop = stopDefault + (1 - fadeRatio) * (100 - stopDefault);
+            //}
+
+            //const mask = `linear-gradient(to bottom, black ${stop}%, transparent 100%)`;
+            //inventoryPets.style.maskImage = mask;
+            //inventoryPets.style.webkitMaskImage = mask;
+
+            updateSVG(inventoryThumb)
+
+        }
+
+        function inventoryFiltersScroll(event) {
+            if (!loaded) { return; }
+            const filterButtonsCount = [...inventoryFilters.children].filter(el => el.clientHeight != 0).length;
+            const scroll = parseInt(inventoryFilters.getAttribute("scroll"))
+            const scrollAmount = Math.max(1, Math.floor(inventoryFilters.clientHeight / (inventoryButtonHeight + inventoryFiltersGap)))
+            if (event.target.classList.contains("left") || event.target.parentElement.classList.contains("left")) {
+                const finalScroll = Math.max(Math.floor((scroll - scrollAmount) / scrollAmount) * scrollAmount, 0)
+                if (parseInt(inventoryFilterScrollNumber.textContent) > 1) {
+                    inventoryFilters.setAttribute("scroll", finalScroll)
+                    inventoryFilters.scrollTo({
+                        top: finalScroll * (inventoryButtonHeight + inventoryFiltersGap),
+                        behavior: 'smooth'
+                    });
+                    inventoryFilterScrollNumber.textContent = parseInt(inventoryFilterScrollNumber.textContent) - 1
+                }
+            } else {
+                const finalScroll = Math.min(Math.floor((scroll + scrollAmount) / scrollAmount) * scrollAmount, filterButtonsCount)
+                if (finalScroll < filterButtonsCount) {
+                    inventoryFilters.setAttribute("scroll", finalScroll)
+                    inventoryFilters.scrollTo({
+                        top: finalScroll * (inventoryButtonHeight + inventoryFiltersGap),
+                        behavior: 'smooth'
+                    });
+                    inventoryFilterScrollNumber.textContent = parseInt(inventoryFilterScrollNumber.textContent) + 1
+                }
+            }
+
+            for (let i = 1; i <= 5; i++) {
+                setTimeout(() => {
+                    fadeEffectVertically(inventoryFilters)
+                }, i * 100)
+            }
+        }
+
+        function calculateValue(petID, petCategories) {
+            if (getCookie("game") == "Adopt Me") {
+                var key = ""
+
+                if (typeof petID == "string") {
+                    let id = -1
+                    for (const value of Object.values(pets)) {
+                        if (value.name == petID) {
+                            id = value.id
+                            break
+                        }
+                    }
+
+
+                    if (id != -1) {
+                        petID = id
+                    } else {
+                        return 0
+                    }
+                }
+
+                if (pets[petID] == undefined) {
+                    return 0;
+                }
+
+                if (pets[petID]["value"] != undefined) {
+                    return pets[petID]["value"];
+                } else {
+                    if (petCategories.neon) {
+                        key += "nvalue"
+                    } else if (petCategories.mega) {
+                        key += "mvalue"
+                    } else {
+                        key += "rvalue"
+                    }
+
+
+                    if (petCategories.fly & petCategories.ride) {
+                        key += " - fly&ride"
+                    } else if (petCategories.fly) {
+                        key += " - fly"
+                    } else if (petCategories.ride) {
+                        key += " - ride"
+                    }
+
+
+
+                    if (pets[petID][key + " - nopotion"] != undefined) {
+                        return pets[petID][key + " - nopotion"]
+                    } else if (pets[petID][key]) {
+                        return pets[petID][key];
+                    } else {
+                        return 0;
+                    }
+                }
+            } else if (getCookie("game") == "Grow a Garden") {
+                if (gagpets[petID] == undefined) {
+                    return 0;
+                }
+                if (calculatorType == "one") {
+                    return gagpets[petID].value;
+                } else {
+                    return sciToBigInt(gagpets[petID].sheckles.toString());
+                }
+            }
+
+        }
+
+        function changeDetail(event, forceDetailed = false, forceStandard = false) {
+            if (!loaded) { return; }
+            if ((inventoryDetail.children[0].textContent == "Standard" || forceDetailed) && !forceStandard) {
+                inventoryDetail.children[0].textContent = "Detailed"
+                inventory.classList.add("detailed")
+            } else {
+                inventoryDetail.children[0].textContent = "Standard"
+                inventory.classList.remove("detailed")
+            }
+            detectZoom()
+        }
+
+        function changeFullscreen(event) {
+            if (!loaded) { return; }
+            if (inventoryFullscreen.children[0].textContent == "Categories") {
+                inventoryFullscreen.children[0].textContent = "Fullscreen"
+                inventory.classList.add("fullscreen")
+            } else {
+                inventoryFullscreen.children[0].textContent = "Categories"
+                inventory.classList.remove("fullscreen")
+            }
+            detectZoom()
+        }
+
+        var fetchPets = fetchPetsData()
+        var fetchGagPets = fetchGrowAGardenPetsData()
+        pets = {}
+        gagpets = {}
+
+
+        async function fetchPetsData() {
+            const responsePromise = fetch('/data.json');
+
+            return Promise.all([responsePromise]).then(async ([response]) => {
+                if (!response.ok) {
+                    console.error("Failed to fetch pets data");
+                    return;
+                }
+                const latestPets = await response.json();
+                pets = latestPets
+                delete pets.version
+            })
+        }
+
+        async function fetchGrowAGardenPetsData() {
+            const responsePromise = fetch('/Gag.json');
+
+            return Promise.all([responsePromise]).then(async ([response]) => {
+                if (!response.ok) {
+                    console.error("Failed to fetch pets data");
+                    return;
+                }
+                const latestPets = await response.json();
+                gagpets = latestPets
+                delete gagpets.version
+                gagpetsData = Object.values(gagpets)
+            })
+        }
+
+
+        function formatNumber(value) {
+            let divisions = 0
+            while (value >= 1000 || value <= -1000) {
+                value /= 1000
+                divisions += 1
+            }
+
+            if (value < 0) {
+                value = Math.abs(value)
+            }
+
+            const suffixes = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', "Sp", "Oc", "No", "De"];  // Add more as needed
+
+            let number = (Math.floor(value * 100) / 100).toString();
+            if ((Math.floor(value * 100) / 100) == value) {
+                return value + suffixes[divisions];
+            }
+            return number + suffixes[divisions];
+        }
+
+        function getInitials(text) {
+            return text.trim().split(/\s+/).map(word => word[0] || '').join('').toLowerCase();
+        }
+
+        function createAddButton() {
+            if (!loaded) { return; }
+            const div = document.createElement("div");
+            div.classList.add(...["pet", "fadeBorder", "addButton", "favorites"]);
+            div.innerHTML = `<img class="image" src="/images/misc/add.png">`;
+            div.setAttribute("addImg", "/images/misc/add.png")
+            div.setAttribute("delImg", "/images/misc/subtract.png")
+            div.setAttribute("order", 0)
+            div.setAttribute("onclick", "openFavorites(event)")
+            div.setAttribute("hide2", "false")
+            div.setAttribute("hide", "true")
+            return div;
+        }
+
+        function openFavorites(event) {
+            if (!loaded) { return; }
+            if (event.target.tagName == "DIV") {
+                event.target.setAttribute("onclick", "closeFavorites(event)")
+                event.target.children[0].src = event.target.getAttribute("delImg")
+                event.target.children[0].classList.add("delFilter")
+            } else {
+                event.target.parentElement.setAttribute("onclick", "closeFavorites(event)")
+                event.target.src = event.target.parentElement.getAttribute("delImg")
+                event.target.classList.add("delFilter")
+            }
+            inventory.classList.add("selectFavorites")
+
+            selectFilter()
+        }
+
+        function closeFavorites(event) {
+            if (!loaded) { return; }
+            if (event.target.tagName == "DIV") {
+                event.target.setAttribute("onclick", "openFavorites(event)")
+                event.target.children[0].src = event.target.getAttribute("addImg")
+                event.target.children[0].classList.remove("delFilter")
+            } else {
+                event.target.parentElement.setAttribute("onclick", "openFavorites(event)")
+                event.target.src = event.target.parentElement.getAttribute("addImg")
+                event.target.classList.remove("delFilter")
+            }
+            inventory.classList.remove("selectFavorites")
+
+            selectFilter()
+        }
+
+        const amDiv = document.createElement("div")
+        amDiv.setAttribute("ontouchstart", "highlight(event)")
+        amDiv.setAttribute("ontouchend", "stopHighlight(event)")
+        amDiv.classList.add(...["pet", "fadeBorder"]);
+        amDiv.innerHTML = `<p class="name">Name</p>
+                <img class="image" loading="lazy" decoding="async" fetchPriority="low">
+                <p class="value d">69</p>
+                <p class="value df">69</p>
+                <p class="value dr">69</p>
+                <p class="value dfr">69</p>
+                <p class="value n">69</p>
+                <p class="value nf">69</p>
+                <p class="value nr">69</p>
+                <p class="value nfr">69</p>
+                <p class="value m">69</p>
+                <p class="value mf">69</p>
+                <p class="value mr">69</p>
+                <p class="value mfr">69</p>
+
+                <p class="frost d">69</p>
+                <p class="frost df">69</p>
+                <p class="frost dr">69</p>
+                <p class="frost dfr">69</p>
+                <p class="frost n">69</p>
+                <p class="frost nf">69</p>
+                <p class="frost nr">69</p>
+                <p class="frost nfr">69</p>
+                <p class="frost m">69</p>
+                <p class="frost mf">69</p>
+                <p class="frost mr">69</p>
+                <p class="frost mfr">69</p>
+                
+                `;
+
+        const gagDiv = document.createElement("div")
+        gagDiv.setAttribute("ontouchstart", "highlight(event)")
+        gagDiv.setAttribute("ontouchend", "stopHighlight(event)")
+        gagDiv.classList.add(...["pet", "fadeBorder"]);
+        gagDiv.innerHTML = `
+    <p class="name">Name</p>
+    <img class="image">
+    <p class="value gag">69</p>
+    <p class="sheckles gag">69Sx</p>
+`;
+
+
+        function nextFrame() {
+            // Firefox detection
+            const isFirefox = typeof InstallTrigger !== "undefined";
+
+            if (isFirefox && "requestIdleCallback" in window) {
+                return new Promise(resolve => requestIdleCallback(resolve, { timeout: 16 }));
+            } else {
+                return new Promise(resolve => requestAnimationFrame(resolve));
+            }
+        }
+
+        async function waitForInventoryHydration(maxWait = 15000) {
+            if (inventoryLoaded) {
+                return;
+            }
+
+            const startTime = (typeof performance !== "undefined" && performance.now)
+                ? performance.now()
+                : Date.now();
+            let warned = false;
+
+            while (!inventoryLoaded) {
+                await nextFrame();
+                const now = (typeof performance !== "undefined" && performance.now)
+                    ? performance.now()
+                    : Date.now();
+
+                if (!warned && now - startTime > maxWait) {
+                    console.warn("Inventory load is taking longer than expected.");
+                    warned = true;
+                }
+            }
+        }
+
+
+        async function loadInImages(list = []) {
+            let images = list
+            if (list == []) {
+                images = allPetsElements.filter(pet =>
+                    pet.classList.contains("loadImage")
+                );
+            }
+
+
+            for (let i = 0; i < images.length; i++) {
+                if (images[i].classList.contains("loadImage")) {
+                    images[i].children[1].setAttribute("src", images[i].getAttribute("source", "") + "?v=2")
+                    images[i].classList.remove("loadImage")
+
+                    if (i % 50 === 0) await nextFrame();
+                }
+            }
+
+        }
+
+        async function loadPets(game = "Adopt Me") {
+            inventoryLoaded = false
+            if (!loaded) { return; }
+            if (game != "Adopt Me" && game != "Grow a Garden") {
+                setCookie("game", "Adopt Me", 999)
+                game = "Adopt Me"
+            }
+
+            let frostValue = 1
+
+            inventoryPets.classList.add("rebuilding")
+
+
+            if (game == "Adopt Me") {
+                document.getElementById("inventoryDetail").children[0].textContent = "Standard"
+                inventory.classList.remove("detailed")
+
+                frostValue = Math.max(
+                    calculateValue("Frost Dragon", { "fly": true, "ride": true, "default": true, "neon": false, "mega": false }),
+                    1
+                );
+            } else if (game == "Grow a Garden") {
+                document.getElementById("inventoryDetail").children[0].textContent = "Detailed"
+                inventory.classList.add("detailed")
+            }
+
+            inventory.style.display = "grid"
+            inventory.style.transition = "none";
+            inventory.style.transform = "scale(1) translate(-50%, -50%)";
+            inventory.style.opacity = "0";
+            inventoryBackground.style.opacity = "0";
+            inventory.classList.add("pets")
+
+            const buildChunkSize = 120;
+
+
+            mutationMenu.style.display = "flex"
+            mutationMenu.style.opacity = "0"
+            mutationMenu.style.transform = "scale(1) translate(-50%, -50%)"
+            mutationMenu.style.transition = "none"
+
+
+
+
+
+            for (let i = 0; i < inventoryFilters.children.length; i++) {
+                inventoryFilters.children[i].style.transition = "none"
+            }
+
+
+
+            await nextFrame()
+
+            allPetsElements = [];
+            allPetsElements.push(createAddButton())
+
+            if (game == "Adopt Me") {
+                inventory.classList.add("am")
+                inventory.classList.remove("gag")
+
+                const petsList = Object.values(pets)
+
+                for (let i = 0; i < petsList.length; i++) {
+                    const pet = petsList[i]
+                    /*
+                    const div = document.createElement("div");
+                    div.setAttribute("ontouchstart", "highlight(event)")
+                    div.setAttribute("ontouchend", "stopHighlight(event)")
+                    div.classList.add(...["pet", "fadeBorder"]);
+                    div.innerHTML = `<p class="name">Name</p>
+                                    <img class="image" loading="lazy" src="/images/pets/Bat Dragon.png">
+                                    <p class="value d">69</p>
+                                    <p class="value df">69</p>
+                                    <p class="value dr">69</p>
+                                    <p class="value dfr">69</p>
+                                    <p class="value n">69</p>
+                                    <p class="value nf">69</p>
+                                    <p class="value nr">69</p>
+                                    <p class="value nfr">69</p>
+                                    <p class="value m">69</p>
+                                    <p class="value mf">69</p>
+                                    <p class="value mr">69</p>
+                                    <p class="value mfr">69</p>
+                                    <p class="frost d">69</p>
+                                    <p class="frost df">69</p>
+                                    <p class="frost dr">69</p>
+                                    <p class="frost d">69</p>`;.......
+                        
+                    */
+
+                    const div = amDiv.cloneNode(true)
+
+                    div.setAttribute("name", pet.name)
+                    div.setAttribute("initials", getInitials(pet.name))
+                    div.setAttribute("rarity", pet.rarity)
+                    div.setAttribute("type", pet.type)
+                    div.setAttribute("hide", "false")
+                    div.setAttribute("hide2", "false")
+                    div.setAttribute("onclick", "petClick(event)")
+                    div.setAttribute("id", pet.id)
+                    div.setAttribute("favorite", favorites.includes(pet.name))
+                    if (favorites.includes(pet.name)) { div.classList.add("favorites") }
+
+                    div.classList.add(...[pet.type.replace(" ", "-"), pet.rarity.replace(" ", "-")])
+
+                    order = parseInt((pet["score"] ?? 1000) * 10)
+
+                    if (pet.type == "pets") {
+                        order += (10 ** 7) * 1
+                    }
+                    if (pet.type == "eggs") {
+                        order += (10 ** 7) * 2
+                    }
+                    if (pet.type == "vehicles") {
+                        order += (10 ** 7) * 3
+                    }
+                    if (pet.type == "pet wear") {
+                        order += (10 ** 7) * 4
+                    }
+                    if (pet.type == "other") {
+                        order += (10 ** 7) * 5
+                    }
+                    if (pet.type == "gifts") {
+                        order += (10 ** 7) * 5
+                    }
+                    if (pet.type == "toys") {
+                        order += (10 ** 7) * 5
+                    }
+                    if (pet.type == "strollers") {
+                        order += (10 ** 7) * 5
+                    }
+                    if (pet.type == "food") {
+                        order += (10 ** 7) * 5
+                    }
+                    if (pet.type == "stickers") {
+                        order += (10 ** 7) * 5
+                    }
+
+                    if (pet.rarity == "legendary") {
+                        order += (10 ** 6) * 1
+                    }
+                    if (pet.rarity == "ultra rare" || pet.rarity == "ulte") {
+                        order += (10 ** 6) * 2
+                    }
+                    if (pet.rarity == "rare") {
+                        order += (10 ** 6) * 3
+                    }
+                    if (pet.rarity == "uncommon") {
+                        order += (10 ** 6) * 4
+                    }
+                    if (pet.rarity == "common") {
+                        order += (10 ** 6) * 5
+                    }
+
+                    div.setAttribute("order", order)
+                    div.setAttribute("value", pet.rvalue || pet.value)
+
+
+
+
+                    div.children[0].textContent = pet.name;
+                    div.classList.add("loadImage")
+                    div.setAttribute("source", pet.image);
+
+
+                    div.children[1].alt = pet.name;
+                    div.children[1].style.fontSize = "20px";
+
+                    let value = pet["rvalue - nopotion"] || pet.value || pet.rvalue
+
+                    if (value) {
+                        div.children[2].textContent = value;
+                        if (!div.children[2].textContent) {
+                            div.classList.add("hideAttributesValue");
+                        }
+
+                        div.children[3].textContent = pet["rvalue - fly"];
+                        div.children[4].textContent = pet["rvalue - ride"];
+                        div.children[5].textContent = pet["rvalue - fly&ride"];
+                        div.children[6].textContent = pet["nvalue - nopotion"];
+                        div.children[7].textContent = pet["nvalue - fly"];
+                        div.children[8].textContent = pet["nvalue - ride"];
+                        div.children[9].textContent = pet["nvalue - fly&ride"];
+                        div.children[10].textContent = pet["mvalue - nopotion"];
+                        div.children[11].textContent = pet["mvalue - fly"];
+                        div.children[12].textContent = pet["mvalue - ride"];
+                        div.children[13].textContent = pet["mvalue - fly&ride"];
+
+                        div.children[14].textContent = (value / frostValue).toFixed(2)
+                        div.children[15].textContent = (pet["rvalue - fly"] / frostValue).toFixed(2);
+                        div.children[16].textContent = (pet["rvalue - ride"] / frostValue).toFixed(2);
+                        div.children[17].textContent = (pet["rvalue - fly&ride"] / frostValue).toFixed(2);
+                        div.children[18].textContent = (pet["nvalue - nopotion"] / frostValue).toFixed(2);
+                        div.children[19].textContent = (pet["nvalue - fly"] / frostValue).toFixed(2);
+                        div.children[20].textContent = (pet["nvalue - ride"] / frostValue).toFixed(2);
+                        div.children[21].textContent = (pet["nvalue - fly&ride"] / frostValue).toFixed(2);
+                        div.children[22].textContent = (pet["mvalue - nopotion"] / frostValue).toFixed(2);
+                        div.children[23].textContent = (pet["mvalue - fly"] / frostValue).toFixed(2);
+                        div.children[24].textContent = (pet["mvalue - ride"] / frostValue).toFixed(2);
+                        div.children[25].textContent = (pet["mvalue - fly&ride"] / frostValue).toFixed(2);
+                    } else {
+                        div.classList.add("hideValue");
+                    }
+
+
+
+
+                    allPetsElements.push(div);
+
+                    if ((i + 1) % buildChunkSize === 0) {
+                        await nextFrame();
+                    }
+                };
+
+
+
+                allPetsElements.sort((a, b) => {
+                    const aOrder = parseFloat(a.getAttribute('order')) || 0;
+                    const bOrder = parseFloat(b.getAttribute('order')) || 0;
+                    return aOrder - bOrder;
+                });
+
+
+                const inventoryAdoptMeAttributes = document.getElementById("inventoryAdoptMeAttributes")
+                if (inventoryAdoptMeAttributes.querySelector(".fly").classList.contains("selected")) {
+                    inventory.classList.add("f")
+                }
+                if (inventoryAdoptMeAttributes.querySelector(".ride").classList.contains("selected")) {
+                    inventory.classList.add("r")
+                }
+                if (inventoryAdoptMeAttributes.querySelector(".default").classList.contains("selected")) {
+                    inventory.classList.add("d")
+                } else if (inventoryAdoptMeAttributes.querySelector(".neon").classList.contains("selected")) {
+                    inventory.classList.add("n")
+                } else if (inventoryAdoptMeAttributes.querySelector(".mega").classList.contains("selected")) {
+                    inventory.classList.add("m")
+                }
+
+
+            } else if (game == "Grow a Garden") {
+                inventory.classList.remove(...["f", "r", "d", "n", "m"])
+                inventory.classList.remove("am")
+                inventory.classList.add("gag")
+
+                const petsList = Object.values(gagpets)
+
+
+                for (let i = 0; i < petsList.length; i++) {
+
+                    const pet = petsList[i]
+                    /*
+                    const div = document.createElement("div");
+                    div.setAttribute("ontouchstart", "highlight(event)")
+                    div.setAttribute("ontouchend", "stopHighlight(event)")
+                    div.classList.add(...["pet", "fadeBorder"]);
+                    div.innerHTML = `<p class="name">Name</p>
+                                    <img class="image" src="/images/pets/Bat Dragon.png">
+                                    <p class="value gag">69</p>`;
+                    */
+
+                    const div = gagDiv.cloneNode(true)
+
+                    div.children[0].textContent = pet.name;
+                    div.classList.add("loadImage")
+                    div.setAttribute("source", pet.image);
+                    div.children[1].alt = pet.name;
+                    div.children[1].style.fontSize = "20px";
+                    div.children[2].textContent = formatNumber(pet.value);
+                    div.children[3].textContent = formatNumber(pet.sheckles);
+
+                    div.setAttribute("defaultValue", pet.value);
+
+                    div.setAttribute("order", 10000000 - pet.value)
+                    div.setAttribute("value", formatNumber(pet.value))
+                    div.setAttribute("sheckles", formatNumber(pet.sheckles))
+
+                    div.setAttribute("hide", "false")
+                    div.setAttribute("hide2", "false")
+                    div.setAttribute("onclick", "petClick(event)")
+                    div.setAttribute("id", pet.id)
+                    div.setAttribute("name", pet.name)
+                    div.setAttribute("initials", getInitials(pet.name))
+                    div.setAttribute("favorite", favoritesGAG.includes(pet.name))
+                    if (favoritesGAG.includes(pet.name)) { div.classList.add("favorites") }
+
+                    allPetsElements.push(div);
+
+                    if ((i + 1) % buildChunkSize === 0) {
+                        await nextFrame();
+                    }
+                };
+
+                allPetsElements.sort((a, b) => {
+                    const aOrder = parseFloat(a.getAttribute('order')) || 0;
+                    const bOrder = parseFloat(b.getAttribute('order')) || 0;
+                    return aOrder - bOrder;
+                });
+
+            } else {
+                console.log("No game detected:" + getCookie("game"))
+            }
+
+            detectZoom()
+
+
+            measurePetSize();
+
+            inventoryPets.innerHTML = ""
+            renderVisiblePets();
+
+
+
+
+            await nextFrame();
+
+            observeFadeBorderResize(document.querySelectorAll(".fadeBorder"));
+
+            inventory.classList.remove("pets")
+
+            requestAnimationFrame(() => {
+                if (!inventoryIsOpen) {
+                    inventory.style.transition = "";
+                    inventory.style.transform = "";
+                    inventory.style.opacity = "0";
+                    inventoryBackground.style.opacity = "";
+                }
+
+                mutationMenu.style.display = ""
+                mutationMenu.style.opacity = ""
+                mutationMenu.style.transform = ""
+                mutationMenu.style.transition = ""
+
+                for (let i = 0; i < inventoryFilters.children.length; i++) {
+                    inventoryFilters.children[i].style.transition = ""
+                }
+
+                inventoryLoaded = true
+                inventoryPets.classList.remove("rebuilding")
+
+                //loadInImages()
+            })
+
+
+        }
+
+
+        function measurePetSize() {
+            if (!loaded) { return; }
+            try {
+
+                const boundingClientRect = inventoryPetWidthCalculator.getBoundingClientRect()
+
+                petWidth = boundingClientRect.width;
+
+
+                const element = inventoryPets.querySelector(".pet")
+                element.style.display = "block"
+                const boundingRect = element.getBoundingClientRect()
+                petHeight = boundingRect.height;
+                petGap = parseFloat(getComputedStyle(inventoryPets).gap.split("px")[0])
+                element.style.display = ""
+
+            } catch (error) {
+
+            }
+        }
+
+        let lastVisiblePets = []
+
+        function renderVisiblePets() {
+            if (!loaded) { return; }
+
+            const visiblePets = allPetsElements.filter(pet =>
+                pet.getAttribute("hide") == "false" && pet.getAttribute("hide2") == "false"
+            );
+
+            loadInImages(visiblePets)
+
+
+
+            const oldScrollHeight = inventoryPetsScrollHeight;
+            const oldScrollTop = inventoryPetsScrollTop;
+
+
+
+
+            const containerBoundingRect = inventoryPets.getBoundingClientRect();
+            const containerHeight = containerBoundingRect.height;
+            const containerWidth = containerBoundingRect.width;
+
+            /*
+            let petsPerRow = 0;
+            let remainingWidth = containerWidth;
+            while (remainingWidth >= petWidth) {
+                remainingWidth -= (petWidth + petGap);
+                petsPerRow++;
+            }
+        
+            if (petsPerRow == 0) {
+                petsPerRow++;
+            }
+        
+            */
+
+
+
+            let totalUnit = petWidth + petGap;
+            let petsPerRow = Math.floor((containerWidth + petGap) / totalUnit);
+            if (petsPerRow < 1) petsPerRow = 1;
+
+
+
+            let rowHeight = petHeight + petGap;
+            let totalRows = Math.ceil(visiblePets.length / petsPerRow);
+
+            let startRow = Math.max(0, Math.floor(oldScrollTop / rowHeight) - 2); // 1 extra row above
+            let startIndex = startRow * petsPerRow;
+
+            let visibleRows = Math.ceil(containerHeight / rowHeight) + 12; // 1 extra row below
+            const endIndex = Math.min(startIndex + visibleRows * petsPerRow, visiblePets.length);
+
+            inventoryPets.innerHTML = "";
+
+            const topSpace = document.createElement("div");
+            const topHeight = startRow * rowHeight;
+            if (topSpace.style.height !== `${topHeight}px`) {
+                topSpace.style.height = `${topHeight}px`;
+            }
+            topSpace.style.gridColumn = "1 / -1";
+            topSpace.style.display = "block"
+            inventoryPets.appendChild(topSpace);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                inventoryPets.appendChild(visiblePets[i]);
+            }
+
+            const renderedRows = Math.ceil((endIndex - startIndex) / petsPerRow);
+            const bottomSpace = document.createElement("div");
+            const bottomHeight = (totalRows - startRow - renderedRows) * rowHeight;
+
+            if (bottomSpace.style.height !== `${bottomHeight}px`) {
+                bottomSpace.style.height = `${bottomHeight}px`;
+            }
+            bottomSpace.style.gridColumn = "1 / -1";
+            bottomSpace.style.display = "block";
+            inventoryPets.appendChild(bottomSpace);
+
+            const newScrollHeight = totalRows * rowHeight + petGap
+            const maxScroll = Math.max(0, newScrollHeight - inventoryPetsRect.height);
+            const delta = newScrollHeight - oldScrollHeight;
+
+            if (Math.abs(delta) > 0.1) {
+                if (oldScrollTop <= 0.1) {
+                    inventoryPets.scrollTop = 0;
+                } else {
+                    const newScrollTop = Math.min(oldScrollTop, maxScroll);
+                    inventoryPets.scrollTop = Math.max(0, newScrollTop);
+                }
+            }
+
+            updateThumb()
+            fadeEffectVertically(inventoryPets, "gap")
+            observeFadeBorderResize(document.querySelectorAll(".fadeBorder"));
+
+
+        }
+
+        window.loadInPets = function loadInPets(game = getCookie("game") || "Adopt Me") {
+            return Promise.all([fetchPets, fetchGagPets]).then(() => loadPets(game));
+        }
+
+        function deactivate(event) {
+            if (!loaded) { return; }
+            event.target.classList.remove("deactivate")
+            event.target.removeEventListener("mouseleave", deactivate)
+        }
+
+
+        function selectAttribute(event) {
+            if (!loaded) { return; }
+            if ((event.target.classList.contains("fly") || event.target.classList.contains("ride")) && event.target.classList.contains("selected")) {
+                event.target.classList.remove("selected")
+                event.target.classList.add("deactivate")
+                event.target.addEventListener("mouseleave", deactivate)
+                if (event.target.classList.contains("fly")) {
+                    inventory.classList.remove("f")
+                } else if (event.target.classList.contains("ride")) {
+                    inventory.classList.remove("r")
+                }
+
+            } else {
+                event.target.classList.add("selected")
+                event.target.classList.remove("deactivate")
+            }
+
+            if (event.target.classList.contains("default")) {
+                event.target.parentElement.querySelector(".neon").classList.remove("selected")
+                event.target.parentElement.querySelector(".mega").classList.remove("selected")
+
+                inventory.classList.add("d")
+                inventory.classList.remove("n")
+                inventory.classList.remove("m")
+
+            } else if (event.target.classList.contains("neon")) {
+                event.target.parentElement.querySelector(".default").classList.remove("selected")
+                event.target.parentElement.querySelector(".mega").classList.remove("selected")
+
+                inventory.classList.remove("d")
+                inventory.classList.add("n")
+                inventory.classList.remove("m")
+
+            } else if (event.target.classList.contains("mega")) {
+                event.target.parentElement.querySelector(".default").classList.remove("selected")
+                event.target.parentElement.querySelector(".neon").classList.remove("selected")
+
+                inventory.classList.remove("d")
+                inventory.classList.remove("n")
+                inventory.classList.add("m")
+            }
+
+            if (event.target.parentElement.querySelector(".fly").classList.contains("selected")) {
+                inventory.classList.add("f")
+            }
+
+            if (event.target.parentElement.querySelector(".ride").classList.contains("selected")) {
+                inventory.classList.add("r")
+            }
+        }
+
+        let lastRenderTime = 0;
+        let lastScrollTop = 0;
+
+
+        function updateGAGPetsValues() {
+            if (!loaded) { return; }
+            allPetsElements.forEach(pet => {
+                const id = pet.getAttribute("id")
+
+                if (id != null) {
+                    const value = parseInt(pet.getAttribute("defaultValue"))
+                    const weight = parseInt(document.getElementById("inventoryGrowAGardenWeight").value.split(" kg")[0]) || 0
+                    const age = parseInt(document.getElementById("inventoryGrowAGardenAge").value) || 0
+                    const mutation = document.getElementById("inventoryMutation").textContent
+
+                    let newValue = value
+
+                    if (4 <= weight && weight < 7) {
+                        newValue += gagpets[id]["4-7 kg"]
+                    } else if (7 <= weight && weight <= 11) {
+                        newValue += gagpets[id]["7-11 kg"]
+                    } else if (11 < weight) {
+                        newValue += gagpets[id]["11+ kg"]
+                    }
+
+                    if (25 <= age && age <= 49) {
+                        newValue += gagpets[id]["age 25-49"]
+                    } else if (50 <= age && age <= 74) {
+                        newValue += gagpets[id]["age 50-74"]
+                    } else if (75 <= age) {
+                        newValue += gagpets[id]["age 75-100"]
+                    }
+
+                    if (gagpets[id][mutation.toLowerCase()] != undefined) {
+                        newValue += gagpets[id][mutation.toLowerCase()]
+                    }
+
+                    pet.children[2].textContent = formatNumber(newValue)
+                }
+
+
+
+            })
+        }
+
+        function addKilos(e) {
+            if (!loaded) { return; }
+            const input = e.target;
+
+            // Allow digits and one comma/dot, normalize comma to dot
+            let raw = input.value.replace(/[^\d.,]/g, '').replace(',', '.');
+
+            // Only keep the first dot if multiple
+            const parts = raw.split('.');
+            let cleaned = parts[0];
+            if (parts.length > 1) {
+                cleaned += '.' + parts.slice(1).join('').replace(/\./g, '');
+            }
+
+            // If empty, clear value and remove attribute
+            if (cleaned.trim() === '') {
+                input.value = '';
+                input.removeAttribute('weight');
+                updateGAGPetsValues()
+                return;
+            }
+
+            // Set the visible value with " kg"
+
+
+            input.value = cleaned.slice(0, 3) + ' kg';
+
+            // Save numeric weight as an attribute
+            input.setAttribute('weight', parseFloat(cleaned.slice(0, 3)));
+
+            // Keep cursor before the " kg"
+            const kgIndex = input.value.indexOf(' kg');
+            input.setSelectionRange(kgIndex, kgIndex);
+
+            updateGAGPetsValues()
+        }
+
+        function addAge(e) {
+            if (!loaded) { return; }
+            const input = e.target;
+
+            // Keep only digits
+            const cleaned = input.value.replace(/\D/g, '').slice(0, 3);;
+
+            if (parseInt(cleaned) > 100) {
+                input.value = 100;
+                input.setAttribute('age', 100);
+            } else {
+                input.value = cleaned;
+                input.setAttribute('age', parseInt(cleaned));
+            }
+
+
+            // Set age attribute if value exists, otherwise remove it
+            if (!cleaned) {
+                input.removeAttribute('age');
+            }
+
+            updateGAGPetsValues()
+        }
+
+
+        window.openInventory = async function openInventory() {
+            while (!loaded) {
+                await new Promise(r => setTimeout(r, 50));
+            }
+
+            await waitForInventoryHydration();
+
+            inventoryIsOpen = true;
+            inventory.style.display = "grid";
+            inventoryBackground.style.display = "block";
+
+            const iframe = window.parent.document.getElementById("inventoryIframe");
+            iframe?.classList.add("open");
+
+            await nextFrame();
+
+
+            inventory.style.transition = "none";
+            inventory.style.transform = "scale(1) translate(-50%, -50%)";
+            inventory.style.opacity = "0";
+            inventoryBackground.style.opacity = "0";
+
+            for (let i = 0; i < inventoryFilters.children.length; i++) {
+                inventoryFilters.children[i].style.transition = "none"
+            }
+
+            await nextFrame()
+
+            detectZoom();
+            fadeEffectOnFilters()
+            fadeEffectVertically(inventoryFilters)
+
+            await nextFrame()
+
+            inventory.style.transform = "scale(0) translate(-50%, -50%)";
+            inventory.style.opacity = "1";
+
+            for (let i = 0; i < inventoryFilters.children.length; i++) {
+                inventoryFilters.children[i].style.transition = ""
+            }
+
+
+            await nextFrame();
+
+            inventory.style.transition = "";
+            inventory.style.transform = "scale(1) translate(-50%, -50%)";
+            inventoryBackground.style.opacity = "0.3";
+
+            setTimeout(() => {
+                document.querySelectorAll(".fadeBorder").forEach(element => {
+                    updateSVG(element)
+                })
+            }, 350)
+        }
+
+
+        window.closeInventory = function closeInventory() {
+            if (!loaded) { return; }
+            inventoryIsOpen = false;
+            inventory.style.transform = "scale(0) translate(-50%, -50%)"
+            inventoryBackground.style.opacity = 0
+
+
+            setTimeout(() => {
+                inventory.style.display = "none"
+                inventoryBackground.style.display = "none"
+
+                window.parent.document.getElementById("inventoryIframe")?.classList.remove("open");
+            }, 300)
+        }
+
+        function openMutationMenu(event) {
+            if (!loaded) { return; }
+
+            if (inventoryMutation.children[0].textContent != "Mutation") {
+                removeMutation(event)
+                return;
+            }
+
+            mutationMenu.style.display = "flex"
+            mutationBackground.style.display = "block"
+            setTimeout(() => {
+                mutationMenu.style.transform = "scale(1) translate(-50%, -50%)"
+                mutationBackground.style.opacity = 0.3
+                mutationMenu.classList.add("open")
+                fadeEffectVertically(mutationOptions)
+            }, 1)
+        }
+
+        function closeMutationMenu() {
+            if (!loaded) { return; }
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                setTimeout(() => {
+                    mutationMenu.style.transform = "scale(0) translate(-50%, -50%)"
+                }, 300)
+            } else {
+                mutationMenu.style.transform = "scale(0) translate(-50%, -50%)"
+            }
+
+            mutationBackground.style.opacity = 0
+
+            mutationMenu.classList.remove("open")
+
+
+
+            setTimeout(() => {
+                mutationMenu.style.display = "none"
+                mutationBackground.style.display = "none"
+            }, 300)
+        }
+
+        function mulBigIntFloat(big, float, scale = 1_000_000n) {
+            return big * BigInt(Math.round(float * Number(scale))) / scale;
+        }
+
+        function selectMutation(mutation) {
+            if (!loaded) { return; }
+
+            inventoryMutation.children[0].textContent = mutation
+            mutation = mutation.toLowerCase()
+            inventoryMutation.classList.add("mutationAdded")
+            inventoryMutation.setAttribute("mutation", mutation)
+
+            inventory.classList.remove("shiny", "inverted", "windy", "frozen", "golden", "tiny", "mega", "ironskin", "radiant", "shocked", "rainbow", "ascended", "corrupted", "tranquil", "fried", "aromatic", "giantbean", "glimmering", "luminous", "silver")
+            inventory.classList.add(mutation)
+
+
+            for (let i = 0; i < allPetsElements.length; i++) {
+                let petDiv = allPetsElements[i]
+                if (petDiv.getAttribute("value")) {
+                    const value = convertFormatNoBigInt(petDiv.getAttribute("value"))
+                    const mutationValue = gagpets[petDiv.getAttribute("id")][mutation]
+                    if (mutationValue == undefined) {
+                        petDiv.children[2].innerHTML = petDiv.getAttribute("value")
+                    } else {
+                        petDiv.children[2].innerHTML = formatGagNumber(value + mutationValue)
+                    }
+
+                    try {
+                        let newSheckles = mulBigIntFloat(convertFormat(petDiv.getAttribute("sheckles")), (1 + (mutationValue / value)))
+                        petDiv.children[3].innerHTML = formatGagNumber(newSheckles)
+                    } catch (error) {
+                        petDiv.children[3].innerHTML = petDiv.getAttribute("sheckles")
+                    }
+                }
+            }
+
+
+            closeMutationMenu()
+        }
+
+        function removeMutation(event) {
+            if (!loaded) { return; }
+            event.preventDefault();
+            event.currentTarget.children[0].textContent = "Mutation"
+            event.currentTarget.children[0].classList.remove("mutationAdded")
+            event.currentTarget.children[0].removeAttribute("mutation")
+
+            inventory.classList.remove("shiny", "inverted", "windy", "frozen", "golden", "tiny", "mega", "ironskin", "radiant", "shocked", "rainbow", "ascended", "corrupted", "tranquil", "fried", "aromatic", "giantbean", "glimmering", "luminous", "silver")
+
+            for (let i = 0; i < allPetsElements.length; i++) {
+                const petDiv = allPetsElements[i]
+                if (petDiv.getAttribute("value")) {
+                    petDiv.children[2].textContent = petDiv.getAttribute("value")
+                    petDiv.children[3].textContent = petDiv.getAttribute("sheckles")
+                }
+            }
+
+        }
+
+        function removeInput(event) {
+            if (!loaded) { return; }
+            event.preventDefault();
+
+            if (event.target.tagName == "DIV") {
+                event.target.children[0].value = ""
+                event.target.children[0].removeAttribute("weight")
+                event.target.children[0].removeAttribute("age")
+            } else {
+                event.target.value = ""
+                event.target.removeAttribute("weight")
+                event.target.removeAttribute("age")
+            }
+
+            updateGAGPetsValues()
+        }
+
+        function selectFilter(event = undefined) {
+            if (!loaded) { return; }
+            let filter = "";
+
+            inventory.classList.remove(
+                "all", "pets", "petsRarity", "legendary", "ultra-rare", "rare",
+                "uncommon", "common", "eggs", "vehicles", "pet-wear", "other", "favorites"
+            );
+
+            for (let i = 0; i < inventoryFilters.children.length; i++) {
+                inventoryFilters.children[i].classList.remove("selected");
+            }
+
+            if (event == undefined) {
+                filter = inventory.getAttribute("filter")
+            }
+
+
+            if (event != undefined) {
+                if (event.target.tagName === "BUTTON") {
+                    filter = event.target.children[0].textContent;
+                    inventory.classList.add(...event.target.classList);
+                    event.target.classList.add("selected");
+                } else {
+                    filter = event.target.textContent;
+                    inventory.classList.add(...event.target.parentElement.classList);
+                    event.target.parentElement.classList.add("selected");
+                }
+                inventory.setAttribute("filter", filter.toLowerCase().replace(" ", "-"))
+            }
+
+            const filterClass = filter.toLowerCase().replace(" ", "-");
+
+            if (["Toys", "Pet Wear", "Other", "Food", "Strollers"].includes(filter)) {
+                allPetsElements.sort((a, b) => {
+                    const aOrder = parseFloat(a.getAttribute('value')) || 0;
+                    const bOrder = parseFloat(b.getAttribute('value')) || 0;
+                    return bOrder - aOrder;
+                });
+            } else {
+
+                allPetsElements.sort((a, b) => {
+                    const aOrder = parseFloat(a.getAttribute('order')) || 0;
+                    const bOrder = parseFloat(b.getAttribute('order')) || 0;
+                    return aOrder - bOrder;
+                });
+            }
+
+
+            allPetsElements.forEach(pet => {
+                if ((filterClass == "all" && !pet.classList.contains("addButton")) || (filterClass == "favorites" && inventory.classList.contains("selectFavorites"))) {
+                    pet.setAttribute("hide", "false")
+                } else {
+                    pet.setAttribute("hide", (!pet.classList.contains(filterClass)).toString())
+                }
+
+            });
+
+            inventoryPets.scrollTop = 0;
+
+            renderVisiblePets()
+            scrollInventoryPets()
+
+        }
+
+        function getAttributes(gagvalue = -1, gagsheckles = -1) {
+            if (!loaded) { return; }
+            if (inventory.classList.contains("am")) {
+                const inventoryAdoptMeAttributes = document.getElementById("inventoryAdoptMeAttributes")
+                const flyEnabled = inventoryAdoptMeAttributes.querySelector(".fly").classList.contains("selected")
+                const rideEnabled = inventoryAdoptMeAttributes.querySelector(".ride").classList.contains("selected")
+                const defaultEnabled = inventoryAdoptMeAttributes.querySelector(".default").classList.contains("selected")
+                const neonEnabled = inventoryAdoptMeAttributes.querySelector(".neon").classList.contains("selected")
+                const megaEnabled = inventoryAdoptMeAttributes.querySelector(".mega").classList.contains("selected")
+
+                var checkedValues = '';
+
+                if (rideEnabled) {
+                    checkedValues += "r"
+                }
+                if (flyEnabled) {
+                    checkedValues += "f"
+                }
+                if (defaultEnabled) {
+                    checkedValues += "d"
+                } else if (neonEnabled) {
+                    checkedValues += "n"
+                } else if (megaEnabled) {
+                    checkedValues += "m"
+                }
+
+                return checkedValues
+
+
+            } else {
+
+                const weight = parseInt(document.getElementById("inventoryGrowAGardenWeight").value.split(" kg")[0]) || 0
+                const age = parseInt(document.getElementById("inventoryGrowAGardenAge").value) || 0
+                let mutation = document.getElementById("inventoryMutation").children[0].innerText
+
+                if (mutation == "Mutation") {
+                    mutation = ""
+                }
+
+                return { "weight": weight, "age": age, "mutation": mutation, "value": gagvalue, "sheckles": gagsheckles }
+            }
+        }
+
+        function petClick(event) {
+            if (!loaded || !inventoryLoaded) { return; }
+            let target = event.currentTarget
+
+            if (inventory.classList.contains("selectFavorites")) {
+                if (target.getAttribute("favorite") == "false") {
+                    target.setAttribute("favorite", "true")
+                    target.classList.add("favorites")
+                    if (inventory.classList.contains("am")) {
+                        favorites.push(target.getAttribute("name"))
+                        localStorage.setItem("favorites", JSON.stringify(favorites))
+                    } else if (inventory.classList.contains("gag")) {
+                        favoritesGAG.push(target.getAttribute("name"))
+                        localStorage.setItem("favoritesGAG", JSON.stringify(favoritesGAG))
+                    }
+                } else {
+                    target.setAttribute("favorite", "false")
+                    target.classList.remove("favorites")
+                    if (inventory.classList.contains("am")) {
+                        favorites.splice(favorites.indexOf(target.getAttribute("name")), 1)
+                        localStorage.setItem("favorites", JSON.stringify(favorites))
+                    } else if (inventory.classList.contains("gag")) {
+                        favoritesGAG.splice(favoritesGAG.indexOf(target.getAttribute("name")), 1)
+                        localStorage.setItem("favoritesGAG", JSON.stringify(favoritesGAG))
+                    }
+                }
+            } else {
+                if (inventoryPets.querySelector(".selected")) { inventoryPets.querySelector(".selected").classList.remove("selected") }
+                target.classList.add("selected")
+                if (window.parent?.addPetToInventory) {
+                    window.parent.addPetToInventory(pets[target.id]);
+                } else if (window.parent?.addToSet) {
+                    if (inventory.classList.contains("am")) {
+                        window.parent.addToSet("", pets[target.id], getAttributes())
+                    } else {
+                        window.parent.addToSet("", gagpets[target.id], getAttributes(target.children[2].textContent, target.children[3].textContent))
+                    }
+
+                } else if (window.parent?.addPetNew) {
+                    if (inventory.classList.contains("am")) {
+                        window.parent.addPetNew(pets[target.id], getAttributes())
+                    } else {
+                        window.parent.addPetNew(gagpets[target.id], getAttributes(target.children[2].textContent, target.children[3].textContent))
+                    }
+                }
+
+            }
+        }
+
+        function searchInventory(event) {
+            if (!loaded) { return; }
+            const input = event.target.value.trim().toLowerCase();
+
+            allPetsElements.forEach(pet => {
+                if (pet.classList.contains("addButton")) return;
+
+                const name = pet.getAttribute("name")?.toLowerCase() || "";
+                const initials = pet.getAttribute("initials")?.toLowerCase() || "";
+
+                if (
+                    input === "" ||
+                    name.startsWith(input) ||
+                    initials.startsWith(input) ||
+                    name.split(" ").some(item => item.startsWith(input))
+                ) {
+                    pet.setAttribute("hide2", "false");
+                } else {
+                    pet.setAttribute("hide2", "true");
+                }
+            });
+
+            inventoryPets.scrollTop = 0;
+
+            renderVisiblePets()
+        }
+
+
+        let horizontalScrollVelocity = 0;
+        let isScrolling = false;
+
+        function scrollHorizontally(e) {
+            if (!loaded) { return; }
+            if (!window.matchMedia("(orientation: portrait)").matches) return;
+
+            const el = e.currentTarget;
+
+            if (e.deltaY === 0) return;
+
+            horizontalScrollVelocity += e.deltaY * 0.3;
+            e.preventDefault();
+
+            if (isScrolling) return;
+            isScrolling = true;
+
+            const step = () => {
+                fadeEffectOnFilters()
+                if (Math.abs(horizontalScrollVelocity) < 0.5 || horizontalScrollVelocity == NaN) {
+                    isScrolling = false;
+                    horizontalScrollVelocity = 0;
+                    return;
+                }
+
+                el.scrollLeft += horizontalScrollVelocity;
+                horizontalScrollVelocity *= 0.75; // decay factor
+                requestAnimationFrame(step);
+            };
+
+            requestAnimationFrame(step);
+
+        }
+
+
+
+        function fadeEffectOnFilters(forceNoneOnLeft = false) {
+            if (!loaded) { return; }
+            if (!window.matchMedia("(orientation: portrait)").matches) return;
+
+            const el = inventoryFilters;
+            el.style.mask = ""
+            el.style.webkitMaskImage = ""
+            const scrollLeft = el.scrollLeft;
+            const scrollWidth = el.scrollWidth;
+            const clientWidth = el.getBoundingClientRect().width;
+
+            // Defaults
+            let rightStop = 20;
+            let leftStop = 80;
+
+            const style = getComputedStyle(el);
+            const rawMask = style.maskImage || style.webkitMaskImage;
+            const matches = [...rawMask.matchAll(/rgb\s*\(\s*0\s*,\s*0\s*,\s*0\s*\)\s+([\d.]+)%/g)];
+            if (matches.length >= 2) {
+                rightStop = parseFloat(matches[0][1]); // right fade
+                leftStop = parseFloat(matches[1][1]);  // left fade
+            }
+
+            const rightTrigger = (rightStop / 100) * clientWidth;
+            const leftTrigger = (1 - leftStop / 100) * clientWidth;
+            const maxScroll = scrollWidth - clientWidth;
+            const scrollRight = maxScroll - scrollLeft;
+
+            let adjustedRight = rightStop;
+            let adjustedLeft = leftStop;
+
+            // Fade out right side when scrolled all the way right
+            if (scrollRight <= rightTrigger) {
+                const ratio = scrollRight / rightTrigger;
+                adjustedRight = rightStop * ratio;
+            }
+
+            // Fade out left side when scrolled all the way left
+            if (scrollLeft <= leftTrigger) {
+                const ratio = scrollLeft / leftTrigger;
+                adjustedLeft = leftStop + (100 - leftStop) * (1 - ratio);
+            }
+
+            let mask = `linear-gradient(to left, transparent 0%, black ${adjustedRight}%, black ${adjustedLeft}%, transparent 100%)`;
+
+            if (forceNoneOnLeft) {
+                mask = `linear-gradient(to left, transparent 0%, black ${rightStop}%, black ${100}%, transparent 100%)`;;
+            }
+
+
+            el.style.maskImage = mask;
+            el.style.webkitMaskImage = mask;
+        }
+
+
+        function start_drag(event) {
+            if (!loaded) { return; }
+            let target = event.currentTarget
+
+            if (event.target.tagName == "BUTTON") {
+                return;
+            }
+
+
+            if (dragging == "" && target.classList.contains("open") || target == mutationBackground) {
+                event.preventDefault()
+                document.querySelector("html").style.overflow = "hidden"
+                if (target == mutationBackground) {
+                    dragging = mutationMenu
+                    dragging.setAttribute("background", "true")
+                } else {
+                    dragging = target
+                }
+
+                if (event.type == "mousedown") {
+                    dragging.setAttribute("start_drag", event.clientY)
+                } else {
+                    dragging.setAttribute("start_drag", event.changedTouches[0]["clientY"])
+                }
+
+                target.addEventListener("mousemove", drag)
+                target.addEventListener("touchmove", drag)
+                window.addEventListener("mouseup", end_drag)
+                window.addEventListener("touchend", end_drag)
+            }
+
+        }
+
+        function drag(event) {
+            if (!loaded) { return; }
+            let target = event.currentTarget
+
+            if (target == mutationBackground) {
+                target = mutationMenu
+            }
+
+
+            target.style.transition = "opacity 0.3s ease, transform 0.3s ease"
+            if (event.type == "mousemove") {
+                target.style.marginBottom = "-" + (event.clientY - parseInt(target.getAttribute("start_drag"))).toString() + "px"
+            } else {
+                target.style.marginBottom = "-" + (event.changedTouches[0]["clientY"] - parseInt(target.getAttribute("start_drag"))).toString() + "px"
+            }
+        }
+
+        function end_drag(event) {
+            if (!loaded) { return; }
+            document.querySelector("html").style.overflow = ""
+            dragging.removeEventListener("mousemove", drag)
+            dragging.removeEventListener("touchmove", drag)
+            if (parseInt(getComputedStyle(dragging).top.split("px")[0]) * 1.6 > window.innerHeight || (dragging.getAttribute("background") == "true" && getComputedStyle(dragging).marginBottom == "0px")) {
+                closeMutationMenu()
+                dragging.style.transition = ""
+                dragging.style.marginBottom = "-125%"
+                dragging.setAttribute("background", "false")
+                setTimeout(() => {
+                    dragging.style.marginBottom = ""
+                    dragging = ""
+                }, 300)
+            } else {
+                dragging.setAttribute("background", "false")
+                dragging.style.transition = ""
+                dragging.style.marginBottom = ""
+                dragging = ""
+            }
+            window.removeEventListener("mouseup", end_drag)
+            window.removeEventListener("touchend", end_drag)
+        }
+
+        function close_background(event) {
+            if (!loaded) { return; }
+            eval(mutationBackground.getAttribute("onclick"))
+        }
+
+        function fadeEffectVertically(element, paddingEffectTop = "none") {
+            if (!loaded) { return; }
+
+            const el = element;
+            el.style.mask = ""
+            el.style.webkitMaskImage = ""
+            const scrollTop = el.scrollTop;
+            let scrollHeight = el.scrollHeight;
+            const clientHeight = el.getBoundingClientRect().height;
+
+            if (element == inventoryFilters) {
+                scrollHeight -= inventoryButtonHeight * 20
+            }
+
+            // Defaults
+            let topStop = 10;
+            let bottomStop = 70;
+
+            el.style.maskImage = ""
+            el.style.webkitMaskImage = "";
+
+            const style = getComputedStyle(el);
+            const rawMask = style.maskImage || style.webkitMaskImage;
+            const matches = [...rawMask.matchAll(/rgb\s*\(\s*0\s*,\s*0\s*,\s*0\s*\)\s+([\d.]+)%/g)];
+            if (matches.length >= 2) {
+                topStop = parseFloat(matches[0][1]);
+                bottomStop = parseFloat(matches[1][1]);
+            }
+
+            const topTrigger = (topStop / 100) * clientHeight;
+            const bottomTrigger = (1 - bottomStop / 100) * clientHeight;
+            const maxScroll = scrollHeight - clientHeight;
+            const scrollBottom = maxScroll - scrollTop;
+
+            let adjustedTop = topStop;
+            let adjustedBottom = bottomStop;
+
+            // Fade out right side when scrolled all the way right
+            if (scrollTop <= topTrigger) {
+                const ratio = scrollTop / topTrigger || 0;
+                adjustedTop = topStop * ratio;
+
+            }
+
+            // Fade out left side when scrolled all the way left
+            if (scrollBottom <= bottomTrigger) {
+                const ratio = scrollBottom / bottomTrigger;
+                adjustedBottom = bottomStop + (100 - bottomStop) * (1 - ratio);
+            }
+
+            let mask = `linear-gradient(to bottom, transparent 0%, black ${adjustedTop}%, black ${adjustedBottom}%, transparent 100%)`;
+
+            if (paddingEffectTop == "gap") {
+                mask = `linear-gradient(to bottom, transparent 0%, transparent var(--inventoryPetsGap), black calc(var(--inventoryPetsGap) + ${adjustedTop}%), black ${adjustedBottom}%, transparent 100%)`;
+            }
+
+
+            el.style.maskImage = mask;
+            el.style.webkitMaskImage = mask;
+        }
+
+        function scrollMutations(event) {
+            if (!loaded) { return; }
+            fadeEffectVertically(mutationOptions)
+            setTimeout(() => {
+                fadeEffectVertically(mutationOptions)
+            }, 50)
+            setTimeout(() => {
+                fadeEffectVertically(mutationOptions)
+            }, 100)
+            setTimeout(() => {
+                fadeEffectVertically(mutationOptions)
+            }, 150)
+            setTimeout(() => {
+                fadeEffectVertically(mutationOptions)
+            }, 200)
+            setTimeout(() => {
+                fadeEffectVertically(mutationOptions)
+            }, 300)
+        }
+
+        function scrollInventoryPets(event) {
+            if (!loaded) { return; }
+            inventoryPetsScrollTop = inventoryPets.scrollTop
+            fadeEffectVertically(inventoryPets, "gap")
+            setTimeout(() => {
+                fadeEffectVertically(inventoryPets, "gap")
+            }, 50)
+            setTimeout(() => {
+                fadeEffectVertically(inventoryPets, "gap")
+            }, 100)
+            setTimeout(() => {
+                fadeEffectVertically(inventoryPets, "gap")
+            }, 150)
+            setTimeout(() => {
+                fadeEffectVertically(inventoryPets, "gap")
+            }, 200)
+            setTimeout(() => {
+                fadeEffectVertically(inventoryPets, "gap")
+            }, 300)
+        }
+
+
+        let petTarget = null
+
+        function highlight(event) {
+            if (!loaded) { return; }
+            let target = event.target
+            if (target.tagName != "DIV") {
+                target = target.parentElement
+            }
+
+            petTarget = target
+
+            target.classList.add("selected")
+        }
+
+        function stopHighlight(event) {
+            if (!loaded) { return; }
+            let target = event.target
+            if (target.tagName != "DIV") {
+                target = target.parentElement
+            }
+
+            petTarget = target
+
+            target.classList.remove("selected")
+        }
+
+
+        function removeBorder(event) {
+            if (!loaded) { return; }
+            event.currentTarget.classList.remove("hover")
+        }
+
+        function addBorder(event) {
+            if (!loaded) { return; }
+            event.currentTarget.classList.add("hover")
+        }
+
+
+
+
+        function createSVG(element) {
+            if (!loaded) { return; }
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.classList.add("border");
+
+            const style = getComputedStyle(element);
+            const rect = element.getBoundingClientRect();
+            element.setAttribute("area", (rect.width * rect.height).toString())
+            const width = rect.width * 2 || 1;
+            const height = rect.height * 2 || 1;
+
+            const radius = style.borderRadius.trim().split('/');
+            const [hRaw, vRaw = hRaw] = radius.map(r => r.trim());
+
+            const parseRadius = (v, ref) =>
+                v.endsWith('%') ? (parseFloat(v) / 100) * ref : parseFloat(v);
+
+            const rx = parseRadius(hRaw, width / 2) * 2;
+            const ry = parseRadius(vRaw, height / 2) * 2;
+
+            svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+            svg.setAttribute("width", width);
+            svg.setAttribute("height", height);
+
+            let stroke = 2 / zoom
+
+            const inset = 0;
+            const boxWidth = width - 2 * inset;
+            const boxHeight = height - 2 * inset;
+
+            const rX = Math.min(rx, boxWidth / 2);
+            const rY = Math.min(ry, boxHeight / 2);
+
+            const x0 = inset, x1 = width - inset - 0.5;
+            const y0 = inset, y1 = height - inset - 0.5;
+
+            const pathD = `
+        M${x0 + rX},${y0}
+        H${x1 - rX}
+        A${rX},${rY} 0 0 1 ${x1},${y0 + rY}
+        V${y1 - rY}
+        A${rX},${rY} 0 0 1 ${x1 - rX},${y1}
+        H${x0 + rX}
+        A${rX},${rY} 0 0 1 ${x0},${y1 - rY}
+        V${y0 + rY}
+        A${rX},${rY} 0 0 1 ${x0 + rX},${y0}
+        Z
+    `.trim();
+
+            const clipId = `clip-${crypto.randomUUID()}`;
+
+            svg.innerHTML = `
+        <defs>
+            <linearGradient id="fadeBorderGradient" gradientUnits="userSpaceOnUse"
+                x1="0" y1="0" x2="0" y2="${height}">
+                <stop offset="0" stop-color="var(--theme-fade-border-start, #fdf9ea)" />
+                <stop offset="1" stop-color="var(--theme-fade-border-end, #6d6b70)" />
+            </linearGradient>
+            <clipPath id="${clipId}">
+                <path d="${pathD}" />
+            </clipPath>
+        </defs>
+        <path d="${pathD}"
+            stroke="url(#fadeBorderGradient)"
+            stroke-width="${stroke}"
+            stroke-linecap="butt"
+            fill="none"
+            clip-path="url(#${clipId})"
+            vector-effect="non-scaling-stroke" />
+    `;
+
+            return svg;
+        }
+
+        async function updateSVG(element, recurse = 0) {
+            if (!loaded) { return; }
+            const svg = element.querySelector(":scope > .border");
+            const rect = element.getBoundingClientRect();
+
+            const area = (rect.width * rect.height).toString()
+
+
+            if (svg && svg.clientWidth != 0 && area != element.getAttribute("area") && area != "0") {
+                element.setAttribute("area", area)
+                const style = getComputedStyle(element);
+                const width = rect.width * 2 || 1;
+                const height = rect.height * 2 || 1;
+
+                if (width == 1) {
+                    return;
+                }
+
+                // Parse border-radius (handles px, %, and elliptical)
+                const radius = style.borderRadius.trim().split('/');
+
+                const [hRaw, vRaw = hRaw] = radius.map(r => r.trim());
+                const parseRadius = (v, ref) =>
+                    v.endsWith('%') ? (parseFloat(v) / 100) * ref : parseFloat(v);
+
+                const rxRaw = parseRadius(hRaw, width / 2) * 2;
+                const ryRaw = parseRadius(vRaw, height / 2) * 2;
+
+                let stroke = 2 / zoom;
+                const inset = 0;
+
+                const rx = Math.max(0, Math.min(rxRaw - inset, width / 2 - inset));
+                const ry = Math.max(0, Math.min(ryRaw - inset, height / 2 - inset));
+
+                const path = svg.querySelector(":scope > path");
+                const clipPath = svg.querySelector("clipPath");
+                const gradient = svg.querySelector("linearGradient");
+
+                svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+                svg.setAttribute("width", width);
+                svg.setAttribute("height", height);
+
+                if (gradient) {
+                    gradient.setAttribute("y2", height);
+                }
+
+                if (path) {
+                    const x0 = inset, x1 = width - inset - 0.5;
+                    const y0 = inset, y1 = height - inset - 0.5;
+
+                    const pathD = `
+                M${x0 + rx},${y0}
+                H${x1 - rx}
+                A${rx},${ry} 0 0 1 ${x1},${y0 + ry}
+                V${y1 - ry}
+                A${rx},${ry} 0 0 1 ${x1 - rx},${y1}
+                H${x0 + rx}
+                A${rx},${ry} 0 0 1 ${x0},${y1 - ry}
+                V${y0 + ry}
+                A${rx},${ry} 0 0 1 ${x0 + rx},${y0}
+                Z
+            `.trim();
+
+                    path.setAttribute("d", pathD);
+                    clipPath.children[0].setAttribute("d", pathD);
+
+                    path.setAttribute("stroke-width", stroke)
+                }
+
+                requestAnimationFrame(() => {
+                    updateSVG(element)
+                })
+
+            } else if (area != element.getAttribute("area") && area == "0" && recurse == 0) {
+                requestAnimationFrame(() => {
+                    updateSVG(element, 1)
+                })
+            }
+
+        }
+
+        function observeFadeBorderResize(elements) {
+            if (!loaded) { return; }
+            elements.forEach(el => {
+                const existing = el.querySelector(":scope > .border");
+                if (!existing) {
+                    el.appendChild(createSVG(el));
+                    resizeObserver.observe(el);
+                }
+            });
+        }
+
+        function formatGagNumber(value) {
+            const suffixes = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'De'];
+
+            // --- BigInt path ---
+            if (typeof value === "bigint") {
+                let negative = value < 0n;
+                let num = negative ? -value : value;
+
+                let divisions = 0;
+                while (num >= 1000n && divisions < suffixes.length - 1) {
+                    num /= 1000n;
+                    divisions++;
+                }
+
+                // To get fractional digits, take remainder before division
+                let divisor = 1000n ** BigInt(divisions);
+                let whole = value / divisor;
+                let remainder = value % divisor;
+
+                // scale remainder to 3 decimals
+                let decimal = Number((remainder * 1000n) / divisor); // 0â€“999
+                let result = whole.toString();
+
+                if (decimal > 0) {
+                    // trim trailing zeros
+                    let decStr = decimal.toString().padStart(3, '0').replace(/0+$/, '');
+                    if (decStr.length > 0) result += "." + decStr;
+                }
+
+                return (negative ? "-" : "") + result + suffixes[divisions];
+            }
+
+            // --- Number path ---
+            let divisions = 0;
+            let num = Math.abs(value);
+            while (num >= 1000 && divisions < suffixes.length - 1) {
+                num /= 1000;
+                divisions++;
+            }
+
+            let number = parseFloat(num.toFixed(3));
+            if (number >= 1000 && divisions < suffixes.length - 1) {
+                number /= 1000;
+                divisions++;
+            }
+
+            return number + suffixes[divisions];
+        }
+
+        function convertFormat(string) {
+            if (string === "") return 0n;
+
+            let splittedString = string.split(/(K|M|B|T|Qa|Qi|Sx|Sp|Oc|No|De)/);
+            if (splittedString.length === 1) {
+                // plain number (int or scientific)
+                return sciToBigInt(string);
+            } else {
+                let dict = {
+                    "K": 10n ** 3n,
+                    "M": 10n ** 6n,
+                    "B": 10n ** 9n,
+                    "T": 10n ** 12n,
+                    "Qa": 10n ** 15n,
+                    "Qi": 10n ** 18n,
+                    "Sx": 10n ** 21n,
+                    "Sp": 10n ** 24n,
+                    "Oc": 10n ** 27n,
+                    "No": 10n ** 30n,
+                    "De": 10n ** 33n
+                };
+
+                let baseStr = splittedString[0];
+                let suffix = splittedString[1];
+
+                // Handle decimal base â†’ scale into integer
+                if (baseStr.includes(".")) {
+                    let [intPart, fracPart] = baseStr.split(".");
+                    let scale = 10n ** BigInt(fracPart.length);
+                    let base = BigInt(intPart + fracPart); // concat digits
+                    return (base * dict[suffix]) / scale;
+                } else {
+                    return BigInt(baseStr) * dict[suffix];
+                }
+            }
+        }
+
+        function convertFormatNoBigInt(string) {
+            if (string === "") return 0;
+
+            let splittedString = string.split(/(K|M|B|T|Qa|Qi|Sx|Sp|Oc|No|De)/);
+
+            if (splittedString.length == 1) {
+                return parseFloat(string.replace(",", "."))
+            }
+
+            let dict = {
+                "K": 10 ** 3,
+                "M": 10 ** 6,
+                "B": 10 ** 9,
+                "T": 10 ** 12,
+                "Qa": 10 ** 15,
+                "Qi": 10 ** 18,
+                "Sx": 10 ** 21,
+                "Sp": 10 ** 24,
+                "Oc": 10 ** 27,
+                "No": 10 ** 30,
+                "De": 10 ** 33
+            };
+
+            let baseStr = splittedString[0];
+            let suffix = splittedString[1];
+
+            if (dict[suffix] == undefined) {
+                console.log("Couldn't covert formatted string: unknown suffix")
+                return 0;
+            }
+
+            try {
+                return parseFloat(baseStr.replace(",", ".")) * dict[suffix]
+            } catch (error) {
+                console.log("Couldn't covert formatted string", error)
+                return 0;
+            }
+
+
+
+        }
+
+        // helper to handle scientific notation safely
+        function sciToBigInt(str) {
+            if (!/[eE]/.test(str)) {
+                // normal integer string
+                return BigInt(str.replace(/\..*$/, "")); // drop decimal part if ".0"
+            }
+
+            let [mantissa, expStr] = str.toLowerCase().split('e');
+            let exponent = parseInt(expStr, 10);
+
+            // strip decimal point
+            let dot = mantissa.indexOf('.');
+            let fracDigits = 0;
+            if (dot !== -1) {
+                fracDigits = mantissa.length - dot - 1;
+                mantissa = mantissa.replace('.', '');
+            }
+
+            exponent -= fracDigits;
+
+            if (exponent >= 0) {
+                mantissa += '0'.repeat(exponent);
+            } else {
+                mantissa = mantissa.slice(0, exponent); // truncate if fractional
+            }
+
+            if (mantissa === "" || mantissa === "-") return 0n;
+            return BigInt(mantissa);
+        }
+    </script>
+    <script src="/js/theme.js"></script>
+
+</body>

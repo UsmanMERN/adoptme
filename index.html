@@ -9,13 +9,9 @@
         /* ==========================================================================
        style.css
        Theme color: #f6a6b2 (soft pastel pink)
-       Enhanced by Gemini
        ========================================================================== */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
-        /* -----------------------------------------
-       GLOBAL / RESET
-       ----------------------------------------- */
         :root {
             --theme-pink: #f6a6b2;
             --theme-pink-light: #fff8fa;
@@ -38,8 +34,6 @@
             font-family: 'Poppins', sans-serif;
             background: var(--theme-pink-light);
             color: #333;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         /* -----------------------------------------
@@ -52,7 +46,6 @@
             font-size: 32px;
             font-weight: 800;
             letter-spacing: 1.5px;
-            margin-bottom: 6px;
             text-shadow: 0 2px 4px var(--shadow-color);
         }
 
@@ -80,7 +73,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 160px;
+            width: 180px;
+            /* Slightly wider for currency stats */
         }
 
         .score .num {
@@ -93,9 +87,34 @@
             font-size: 11px;
             color: var(--theme-pink-dark);
             font-weight: 700;
+            margin-bottom: 4px;
         }
 
-        /* FAIRNESS BAR */
+        .score-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 100%;
+            padding-top: 8px;
+            border-top: 2px solid #fff;
+        }
+
+        .currency-stat {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 600;
+            color: #888;
+            background: #fff;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .currency-stat span:last-child {
+            font-weight: 800;
+            color: var(--theme-pink-dark);
+        }
+
         .fairness-wrap {
             flex: 1;
             display: flex;
@@ -200,11 +219,11 @@
 
         .panel-foot {
             margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* ==========================================================================
-       SLOTS
-       ========================================================================== */
         .slots-container {
             display: grid;
             grid-template-columns: repeat(var(--cols), 1fr);
@@ -239,6 +258,7 @@
             right: 0;
             bottom: 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 5px;
@@ -255,14 +275,42 @@
         }
 
         .slot.filled img {
-            max-width: 100%;
-            max-height: 100%;
+            max-width: 80%;
+            max-height: 70%;
             object-fit: contain;
-            transition: transform 0.2s ease;
+            margin-bottom: 2px;
         }
 
-        .slot.filled:hover img {
-            transform: scale(0.9);
+        .slot-tags {
+            display: flex;
+            gap: 4px;
+            position: absolute;
+            bottom: 6px;
+        }
+
+        .tag {
+            font-size: 9px;
+            font-weight: 800;
+            color: #fff;
+            padding: 2px 4px;
+            border-radius: 4px;
+            line-height: 1;
+        }
+
+        .tag.neon {
+            background: #00d2ff;
+        }
+
+        .tag.mega {
+            background: #ff00aa;
+        }
+
+        .tag.fly {
+            background: #88caff;
+        }
+
+        .tag.ride {
+            background: #ff9eb5;
         }
 
         /* Add Button */
@@ -288,7 +336,7 @@
         }
 
         /* ==========================================================================
-       MODALS (GENERAL) & DRAWER
+       MODALS & DRAWER
        ========================================================================== */
         .modal-overlay {
             position: fixed;
@@ -321,7 +369,7 @@
             transform: scale(1);
         }
 
-        /* DRAWER STYLES */
+        /* DRAWER */
         .drawer {
             width: 920px;
             max-width: calc(100% - 40px);
@@ -342,31 +390,26 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            align-items: stretch;
+            gap: 10px;
             overflow-y: auto;
         }
 
         .cat-btn {
             background: #fff;
             border: 2px solid #f1c8d0;
-            padding: 14px;
-            border-radius: 999px;
+            padding: 12px;
+            border-radius: 99px;
             font-weight: 800;
             color: #b56a75;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 15px;
+            font-size: 13px;
         }
 
-        .cat-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--theme-pink);
-            color: var(--theme-pink);
-        }
-
+        .cat-btn:hover,
         .cat-btn.active {
+            transform: translateY(-2px);
             background: var(--theme-pink);
             color: #fff;
             border-color: var(--theme-pink);
@@ -396,11 +439,6 @@
             border-color: var(--theme-pink);
         }
 
-        .drawer-search input::placeholder {
-            color: var(--theme-pink);
-            font-weight: 600;
-        }
-
         .drawer-items-wrap {
             flex: 1;
             overflow: auto;
@@ -409,14 +447,14 @@
 
         .drawer-items {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
             justify-items: center;
         }
 
         .drawer-item {
-            width: 150px;
-            height: 170px;
+            width: 100%;
+            height: 160px;
             background: #fff;
             border-radius: 14px;
             border: 1px solid #f4d9de;
@@ -433,42 +471,55 @@
 
         .drawer-item:hover {
             transform: translateY(-6px);
-            background: #fff7f8;
-            border-color: #ffdfe6;
-            box-shadow: 0 8px 24px var(--shadow-color);
+            border-color: var(--theme-pink);
         }
 
         .drawer-item small {
             color: var(--theme-pink-dark);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
             margin-top: 6px;
             height: 30px;
             overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
 
         .drawer-item .img-wrap {
-            height: 80px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-grow: 1;
+            width: 100%;
         }
 
         .drawer-item .img-wrap img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
         }
 
-        .drawer-item .value {
-            color: var(--theme-pink);
+        .drawer-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: var(--theme-pink);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
             font-weight: 800;
-            font-size: 13px;
-            margin-bottom: 6px;
+            cursor: pointer;
+            z-index: 2100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* MODAL STYLES (QUANTITY & PET) */
+        /* GENERIC MODAL CONTENT */
         .modal-content {
             width: 360px;
             background: #fff;
@@ -481,16 +532,9 @@
 
         .modal-content h3 {
             color: var(--theme-pink);
-            margin: 0 0 8px 0;
+            margin: 0 0 15px 0;
             font-weight: 800;
-            font-size: 20px;
-        }
-
-        .modal-content p {
-            color: var(--theme-pink-dark);
-            margin: 0 0 16px 0;
-            font-size: 14px;
-            text-transform: none;
+            font-size: 18px;
         }
 
         .modal-actions {
@@ -501,17 +545,16 @@
         }
 
         .modal-btn {
-            padding: 12px 22px;
-            border-radius: 12px;
+            padding: 10px 20px;
+            border-radius: 10px;
             font-weight: 800;
             border: none;
             cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            transition: transform 0.15s ease;
         }
 
         .modal-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .cancel-btn {
@@ -521,253 +564,159 @@
         }
 
         .add-btn-pink {
-            background: linear-gradient(90deg, #ffd5de, var(--theme-pink));
+            background: var(--theme-pink);
             color: #fff;
         }
 
-        /* QUANTITY MODAL SPECIFIC */
+        /* PET OPTIONS FORM */
+        .pet-options-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .pet-options-group label {
+            font-size: 12px;
+            color: var(--theme-pink-dark);
+            font-weight: 800;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Version uses Radio (one at a time) */
+        .radio-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .radio-option input {
+            display: none;
+        }
+
+        .radio-option span {
+            display: block;
+            text-align: center;
+            padding: 8px 5px;
+            background: #fff8fa;
+            border: 2px solid #fbdde3;
+            border-radius: 8px;
+            color: var(--theme-pink-dark);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option input:checked+span {
+            background: var(--theme-pink);
+            color: #fff;
+            border-color: var(--theme-pink);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        /* Potions uses Checkbox (multiple allowed) */
+        .check-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .check-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .check-option input {
+            display: none;
+        }
+
+        .check-option span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: #fff8fa;
+            border: 2px solid #fbdde3;
+            border-radius: 8px;
+            color: var(--theme-pink-dark);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .check-option input:checked+span {
+            background: var(--theme-pink);
+            color: #fff;
+            border-color: var(--theme-pink);
+        }
+
+
+        /* QUANTITY INPUT */
         .quantity-input {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 16px;
+            margin: 20px 0;
         }
 
         .quantity-input button {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             border: none;
             background: var(--theme-pink);
             color: #fff;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .quantity-input button:hover {
-            background: #f895a3;
         }
 
         .quantity-input input {
-            width: 80px;
-            height: 44px;
+            width: 60px;
+            height: 40px;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 2px solid var(--theme-pink);
             font-weight: 800;
             font-size: 18px;
             outline: none;
         }
 
-        /* NEW PET OPTIONS MODAL */
-        .pet-options-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: stretch;
-            /* Full width */
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 12px;
-            background: var(--theme-pink-light);
-            border-radius: 10px;
-            border: 2px solid var(--border-color);
-            transition: all 0.2s ease;
-        }
-
-        .checkbox-label:hover {
-            border-color: var(--theme-pink);
-        }
-
-        .checkbox-label input[type="checkbox"] {
-            display: none;
-            /* Hide original checkbox */
-        }
-
-        .checkbox-label .custom-check {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--theme-pink);
-            border-radius: 6px;
-            margin-right: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s;
-        }
-
-        .checkbox-label .custom-check::after {
-            content: '✔';
-            color: white;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .checkbox-label input:checked+.custom-check {
-            background: var(--theme-pink);
-        }
-
-        .checkbox-label input:checked+.custom-check::after {
-            opacity: 1;
-        }
-
-        .icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            margin-right: 8px;
-        }
-
-        .icon.fly {
-            background: #3498db;
-        }
-
-        .icon.ride {
-            background: #e74c3c;
-        }
-
-
-        /* FOOTER, SCROLLBARS, RESPONSIVE */
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            background: #fff;
-            border-top: 1px solid #f5d8dd;
-            margin-top: 40px;
-        }
-
-        footer h2 {
-            color: var(--theme-pink);
-            font-weight: 800;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-btn {
-            background: var(--theme-pink);
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            box-shadow: 0 4px 12px var(--shadow-color);
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            background: #ffb9c5;
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px var(--shadow-color);
-        }
-
-        .drawer-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 38px;
-            height: 38px;
-            background: var(--theme-pink);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            font-size: 24px;
-            font-weight: 800;
-            line-height: 1;
-            cursor: pointer;
-            z-index: 2100;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .drawer-close:hover {
-            background: #ffb9c5;
-            transform: scale(1.1) rotate(90deg);
-        }
-
         /* SCROLLBARS */
-        .drawer-items-wrap::-webkit-scrollbar,
-        .slots-container::-webkit-scrollbar,
-        .drawer-categories::-webkit-scrollbar {
+        ::-webkit-scrollbar {
             width: 8px;
         }
 
-        .drawer-items-wrap::-webkit-scrollbar-thumb,
-        .slots-container::-webkit-scrollbar-thumb,
-        .drawer-categories::-webkit-scrollbar-thumb {
+        ::-webkit-scrollbar-thumb {
             background: var(--theme-pink);
-            border-radius: 10px;
+            border-radius: 4px;
         }
 
-        .drawer-items-wrap::-webkit-scrollbar-track,
-        .slots-container::-webkit-scrollbar-track,
-        .drawer-categories::-webkit-scrollbar-track {
+        ::-webkit-scrollbar-track {
             background: #fff0f2;
         }
 
-        @media (max-width: 980px) {
-            .drawer {
-                width: 100%;
-                height: 86vh;
-            }
-
-            .drawer-categories {
-                width: 160px;
-                padding: 14px;
-            }
-
-            .drawer-items {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-
-            .trade-panel {
-                width: 100%;
-                max-width: 440px;
-            }
-        }
-
         @media (max-width: 640px) {
-            .trade-area {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
-
             .drawer {
-                height: 92vh;
+                height: 90vh;
             }
 
             .drawer-categories {
                 display: none;
             }
 
-            .drawer-items {
-                grid-template-columns: repeat(2, 1fr);
+            .trade-area {
+                flex-direction: column;
+                align-items: center;
             }
 
-            header {
-                font-size: 24px;
+            .trade-panel {
+                width: 100%;
             }
         }
     </style>
@@ -775,15 +724,29 @@
 
 <body>
     <header>
-        <h1>CASSY'S ADOPT ME TRADE CALCULATOR</h1>
+        <h1>CASSY'S CALCULATOR</h1>
     </header>
 
     <div class="wrap">
+        <!-- SCOREBOARD -->
         <div class="score-row">
+            <!-- LEFT SCORE -->
             <div class="score">
-                <div class="num" id="your-score">0.00</div>
                 <div class="label">YOUR OFFER</div>
+                <div class="num" id="your-score">0.00</div>
+                <div class="score-details">
+                    <div class="currency-stat">
+                        <span>FROSTS:</span>
+                        <span id="your-frosts">0.00</span>
+                    </div>
+                    <div class="currency-stat">
+                        <span>SHARKS:</span>
+                        <span id="your-sharks">0.00</span>
+                    </div>
+                </div>
             </div>
+
+            <!-- CENTER INDICATOR -->
             <div class="fairness-wrap">
                 <div class="fair-labels">
                     <span>LOSE</span>
@@ -796,11 +759,25 @@
                 </div>
                 <div class="result-indicator" id="result-indicator">FAIR</div>
             </div>
+
+            <!-- RIGHT SCORE -->
             <div class="score">
-                <div class="num" id="their-score">0.00</div>
                 <div class="label">THEIR OFFER</div>
+                <div class="num" id="their-score">0.00</div>
+                <div class="score-details">
+                    <div class="currency-stat">
+                        <span>FROSTS:</span>
+                        <span id="their-frosts">0.00</span>
+                    </div>
+                    <div class="currency-stat">
+                        <span>SHARKS:</span>
+                        <span id="their-sharks">0.00</span>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- GRIDS -->
         <div class="trade-area">
             <div class="trade-panel">
                 <div class="panel-head">YOUR OFFER</div>
@@ -815,9 +792,9 @@
         </div>
     </div>
 
-    <!-- Drawer (Item Selection) Modal -->
+    <!-- DRAWER MODAL -->
     <div class="modal-overlay" id="drawer-overlay">
-        <div class="drawer modal-dialog" id="drawer">
+        <div class="drawer modal-dialog">
             <button class="drawer-close" id="drawer-close">&times;</button>
             <aside class="drawer-categories" id="drawer-categories-list"></aside>
             <div class="drawer-content">
@@ -831,22 +808,45 @@
         </div>
     </div>
 
-    <!-- Pet Options Modal -->
+    <!-- PET OPTIONS MODAL -->
     <div class="modal-overlay" id="pet-options-modal">
         <div class="modal-content modal-dialog">
             <h3 id="pet-options-title">Pet Options</h3>
-            <div class="pet-options-form">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="pet-fly-check">
-                    <span class="custom-check"></span>
-                    <span class="icon fly">F</span> Fly Potion
-                </label>
-                <label class="checkbox-label">
-                    <input type="checkbox" id="pet-ride-check">
-                    <span class="custom-check"></span>
-                    <span class="icon ride">R</span> Ride Potion
-                </label>
+
+            <!-- Version Selector (Radio: Only one) -->
+            <div class="pet-options-group">
+                <label>VERSION</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="pet_version" value="rvalue" checked>
+                        <span>REGULAR</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="pet_version" value="nvalue">
+                        <span>NEON</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="pet_version" value="mvalue">
+                        <span>MEGA</span>
+                    </label>
+                </div>
             </div>
+
+            <!-- Potion Selector (Checkbox: Multiple) -->
+            <div class="pet-options-group">
+                <label>POTIONS</label>
+                <div class="check-group">
+                    <label class="check-option">
+                        <input type="checkbox" id="check-fly">
+                        <span>FLY</span>
+                    </label>
+                    <label class="check-option">
+                        <input type="checkbox" id="check-ride">
+                        <span>RIDE</span>
+                    </label>
+                </div>
+            </div>
+
             <div class="modal-actions">
                 <button class="modal-btn cancel-btn" id="pet-options-cancel">Cancel</button>
                 <button class="modal-btn add-btn-pink" id="pet-options-confirm">Confirm</button>
@@ -854,11 +854,10 @@
         </div>
     </div>
 
-    <!-- Quantity Modal -->
+    <!-- QUANTITY MODAL -->
     <div class="modal-overlay" id="quantity-modal">
         <div class="modal-content modal-dialog">
             <h3 id="quantity-title">Add Item</h3>
-            <p id="quantity-sub">How many would you like to add?</p>
             <div class="quantity-input">
                 <button id="qty-minus">−</button>
                 <input type="number" id="qty-number" value="1" min="1" max="18" />
@@ -870,366 +869,396 @@
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // --- DOM ELEMENT REFERENCES ---
-            const yourGrid = document.getElementById("your-grid");
-            const theirGrid = document.getElementById("their-grid");
-            const resultIndicator = document.getElementById("result-indicator");
-            const yourTotalSpan = document.getElementById("your-total");
-            const theirTotalSpan = document.getElementById("their-total");
-            const yourScore = document.getElementById("your-score");
-            const theirScore = document.getElementById("their-score");
-            const fairPointer = document.getElementById("fair-pointer");
+            // --- CONSTANTS ---
+            // Base values for currency conversion
+            // 160 is standard for Frost Dragon, 1.0 is standard for Shark
+            let FROST_VALUE = 160.0;
+            let SHARK_VALUE = 1.0;
 
-            // Drawer
-            const drawerOverlay = document.getElementById("drawer-overlay");
-            const drawerItems = document.getElementById("drawer-items");
-            const drawerSearch = document.getElementById("drawer-search");
-            const drawerCategoriesList = document.getElementById('drawer-categories-list');
-            const drawerCloseBtn = document.getElementById("drawer-close");
+            // DOM Elements
+            const grids = {
+                your: document.getElementById("your-grid"),
+                their: document.getElementById("their-grid")
+            };
+            const totals = {
+                your: document.getElementById("your-total"),
+                their: document.getElementById("their-total")
+            };
+            const scores = {
+                your: document.getElementById("your-score"),
+                their: document.getElementById("their-score")
+            };
+            const currencies = {
+                yourFrost: document.getElementById("your-frosts"),
+                yourShark: document.getElementById("your-sharks"),
+                theirFrost: document.getElementById("their-frosts"),
+                theirShark: document.getElementById("their-sharks")
+            };
+            const fairness = {
+                pointer: document.getElementById("fair-pointer"),
+                indicator: document.getElementById("result-indicator")
+            };
 
-            // Pet Options Modal
-            const petOptionsModal = document.getElementById('pet-options-modal');
-            const petOptionsTitle = document.getElementById('pet-options-title');
-            const petFlyCheck = document.getElementById('pet-fly-check');
-            const petRideCheck = document.getElementById('pet-ride-check');
-            const petOptionsCancel = document.getElementById('pet-options-cancel');
-            const petOptionsConfirm = document.getElementById('pet-options-confirm');
+            // Modal Elements
+            const drawer = {
+                overlay: document.getElementById("drawer-overlay"),
+                items: document.getElementById("drawer-items"),
+                search: document.getElementById("drawer-search"),
+                categories: document.getElementById("drawer-categories-list"),
+                close: document.getElementById("drawer-close")
+            };
 
-            // Quantity Modal
-            const qtyModal = document.getElementById("quantity-modal");
-            const qtyTitle = document.getElementById("quantity-title");
-            const qtyNumber = document.getElementById("qty-number");
-            const qtyPlus = document.getElementById("qty-plus");
-            const qtyMinus = document.getElementById("qty-minus");
-            const qtyCancel = document.getElementById("qty-cancel");
-            const qtyConfirm = document.getElementById("qty-confirm");
+            const petModal = {
+                overlay: document.getElementById("pet-options-modal"),
+                title: document.getElementById("pet-options-title"),
+                confirm: document.getElementById("pet-options-confirm"),
+                cancel: document.getElementById("pet-options-cancel"),
+                flyCheck: document.getElementById("check-fly"),
+                rideCheck: document.getElementById("check-ride")
+            };
 
-            // --- CONFIGURATION & STATE ---
-            const SLOTS_PER_SIDE = 18;
-            const PET_CATEGORIES = ['pets', 'neons', 'megas'];
-            const MULTIPLIERS = { ride: 1.05, fly: 1.1 };
-            const FAIR_THRESHOLD = 0.1;
+            const qtyModal = {
+                overlay: document.getElementById("quantity-modal"),
+                title: document.getElementById("quantity-title"),
+                input: document.getElementById("qty-number"),
+                plus: document.getElementById("qty-plus"),
+                minus: document.getElementById("qty-minus"),
+                confirm: document.getElementById("qty-confirm"),
+                cancel: document.getElementById("qty-cancel")
+            };
 
-            let allItemsData = [];
-            let allCategories = [];
+            // State
+            let allData = [];
+            let categories = [];
+            let activeCategory = "";
             let activeGrid = null;
             let selectedItem = null;
-            let selectedPetOptions = {};
-            let activeCategory = null;
+            let selectedPetConfig = null;
+            const MAX_SLOTS = 18;
+            const FAIR_MARGIN = 0.1;
 
-            // --- DATA LOADING ---
-            async function loadData() {
+            // --- 1. LOAD DATA ---
+            async function init() {
                 try {
-                    const response = await fetch('adoptme_values.json');
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    const data = await response.json();
+                    // Load both JSON files
+                    const [dataRes, gagRes] = await Promise.all([
+                        fetch('data.json'),
+                        fetch('Gag.json')
+                    ]);
 
-                    allItemsData = [];
-                    const categorySet = new Set();
+                    const rawData = await dataRes.json();
+                    const rawGag = await gagRes.json();
 
-                    // *** FIX: Correctly parse the nested JSON structure ***
-                    for (const category in data) {
-                        if (category === 'petsneons' && typeof data[category] === 'object') {
-                            // Handle nested 'neons' and 'megas'
-                            for (const subCategory in data[category]) { // e.g., 'neons', 'megas'
-                                categorySet.add(subCategory);
-                                const items = data[category][subCategory];
-                                for (const id in items) {
-                                    allItemsData.push({ id, category: subCategory, ...items[id] });
-                                }
-                            }
-                        } else {
-                            // Handle regular categories
-                            categorySet.add(category);
-                            for (const id in data[category]) {
-                                allItemsData.push({ id, category, ...data[category][id] });
-                            }
-                        }
-                    }
-                    allCategories = [...categorySet].sort();
+                    // Helper to process
+                    const processFile = (fileObj) => {
+                        return Object.values(fileObj).map(item => ({
+                            ...item,
+                            value: item.value || item.rvalue || 0,
+                            id: item.id
+                        }));
+                    };
 
-                    if (allCategories.length > 0) {
-                        activeCategory = allCategories[0];
-                    }
+                    const dataItems = processFile(rawData);
+                    const gagItems = processFile(rawGag);
+                    allData = [...dataItems, ...gagItems];
 
-                    initialize();
-                } catch (error) {
-                    console.error("Failed to load item data:", error);
-                    alert("Error loading adoptme_values.json. Please ensure the file is in the same directory and is formatted correctly.");
+                    // Try to update currency constants if items exist in data
+                    const frostObj = allData.find(i => i.name === "Frost Dragon");
+                    if (frostObj && frostObj.rvalue) FROST_VALUE = frostObj.rvalue;
+
+                    // Determine categories
+                    const types = new Set(allData.map(i => i.type).filter(Boolean));
+                    categories = Array.from(types).sort();
+
+                    activeCategory = categories.includes('pets') ? 'pets' : categories[0];
+
+                    setupUI();
+                    setupListeners();
+                } catch (e) {
+                    console.error("Error loading JSON files:", e);
+                    alert("Failed to load data files. Ensure 'data.json' and 'Gag.json' are in the same directory.");
                 }
             }
 
-            // --- INITIALIZATION ---
-            function initialize() {
-                buildSlots(yourGrid);
-                buildSlots(theirGrid);
-                renderCategoryButtons();
-                setupEventListeners();
-                updateTotals();
-            }
-
-            function buildSlots(grid) {
-                grid.innerHTML = "";
-                for (let i = 0; i < SLOTS_PER_SIDE; i++) {
-                    const slot = document.createElement("div");
-                    slot.classList.add("slot");
-                    slot.innerHTML = '<div class="slot-content"></div>';
-                    grid.appendChild(slot);
-                }
-                updateAddButton(grid);
-            }
-
-            function renderCategoryButtons() {
-                drawerCategoriesList.innerHTML = '';
-                allCategories.forEach(cat => {
+            // --- 2. UI SETUP ---
+            function setupUI() {
+                drawer.categories.innerHTML = '';
+                categories.forEach(cat => {
                     const btn = document.createElement('button');
                     btn.className = 'cat-btn';
-                    btn.dataset.cat = cat;
-                    // Prettify category names for display
-                    let displayName = cat.replace(/_/g, ' ');
-                    if (displayName === 'pets') displayName = 'Pets';
-                    if (displayName === 'neons') displayName = 'Neon Pets';
-                    if (displayName === 'megas') displayName = 'Mega Pets';
-                    btn.textContent = displayName;
-
+                    btn.textContent = cat.replace(/_/g, ' ');
                     if (cat === activeCategory) btn.classList.add('active');
-                    btn.addEventListener('click', () => {
+                    btn.onclick = () => {
                         activeCategory = cat;
                         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
-                        renderDrawerItems();
-                    });
-                    drawerCategoriesList.appendChild(btn);
-                });
-            }
-
-            // --- EVENT LISTENERS ---
-            function setupEventListeners() {
-                drawerOverlay.onclick = e => { if (e.target === drawerOverlay) closeAllModals(); };
-                drawerCloseBtn.onclick = closeAllModals;
-                drawerSearch.oninput = () => renderDrawerItems(true);
-
-                petOptionsConfirm.onclick = handlePetOptionsConfirm;
-                petOptionsCancel.onclick = () => petOptionsModal.classList.remove('show');
-
-                qtyPlus.onclick = () => qtyNumber.value = Math.min(SLOTS_PER_SIDE, +qtyNumber.value + 1);
-                qtyMinus.onclick = () => qtyNumber.value = Math.max(1, +qtyNumber.value - 1);
-                qtyCancel.onclick = () => qtyModal.classList.remove("show");
-                qtyConfirm.onclick = handleQuantityConfirm;
-            }
-
-            // --- MODAL & DRAWER FLOW ---
-            function openDrawer() {
-                drawerOverlay.classList.add("show");
-                renderDrawerItems();
-            }
-
-            function closeAllModals() {
-                drawerOverlay.classList.remove("show");
-                petOptionsModal.classList.remove("show");
-                qtyModal.classList.remove("show");
-            }
-
-            function handleItemSelection(item) {
-                selectedItem = item;
-                closeAllModals(); // Close the drawer first
-
-                // *** ENHANCEMENT: Simplified pet logic. Only ask for Fly/Ride. ***
-                if (PET_CATEGORIES.includes(item.category)) {
-                    showPetOptionsModal(item);
-                } else {
-                    selectedPetOptions = {}; // Reset options for non-pets
-                    showQuantityModal(item);
-                }
-            }
-
-            function showPetOptionsModal(item) {
-                petOptionsTitle.textContent = `Options for ${item.name}`;
-                petFlyCheck.checked = false;
-                petRideCheck.checked = false;
-                petOptionsModal.classList.add('show');
-            }
-
-            function handlePetOptionsConfirm() {
-                selectedPetOptions = {
-                    fly: petFlyCheck.checked,
-                    ride: petRideCheck.checked,
-                };
-                petOptionsModal.classList.remove('show');
-                showQuantityModal(selectedItem);
-            }
-
-            function showQuantityModal(item) {
-                qtyTitle.textContent = `Add ${item.name}`;
-                qtyNumber.value = 1;
-                qtyModal.classList.add("show");
-            }
-
-            function handleQuantityConfirm() {
-                const quantity = parseInt(qtyNumber.value) || 1;
-                qtyModal.classList.remove("show");
-                if (!selectedItem || !activeGrid) return;
-
-                const finalValue = calculateItemValue(selectedItem, selectedPetOptions);
-                addMultipleItems(selectedItem, quantity, finalValue, activeGrid);
-            }
-
-            // --- RENDER & UI LOGIC ---
-            function renderDrawerItems(isSearch = false) {
-                if (!activeCategory) return;
-                const query = drawerSearch.value.trim().toLowerCase();
-                const filtered = allItemsData.filter(item =>
-                    item.category === activeCategory && (query === "" || item.name.toLowerCase().includes(query))
-                );
-
-                drawerItems.innerHTML = !filtered.length ? `<p style="grid-column: 1 / -1; text-align: center; color: #f6a6b2;">No items found</p>` : '';
-
-                filtered.forEach(item => {
-                    const el = document.createElement("div");
-                    el.className = "drawer-item";
-                    el.innerHTML = `
-                    <small>${escapeHtml(item.name)}</small>
-                    <div class="img-wrap"><img src="${item.image_url}" alt="${escapeHtml(item.name)}" loading="lazy"></div>
-                    <div class="value">${item.value.toFixed(2)}</div>
-                `;
-                    el.onclick = () => handleItemSelection(item);
-                    drawerItems.appendChild(el);
-                });
-
-                if (isSearch) {
-                    drawerItems.scrollTop = 0;
-                }
-            }
-
-            // --- TRADE GRID & VALUE CALCULATION ---
-            function addMultipleItems(item, quantity, finalValue, grid) {
-                const emptySlots = Array.from(grid.children).filter(s => !s.classList.contains("filled"));
-                for (let i = 0; i < quantity && i < emptySlots.length; i++) {
-                    addItemToSlot(emptySlots[i], item, finalValue, grid);
-                }
-                updateAddButton(grid);
-            }
-
-            function addItemToSlot(slot, item, finalValue, grid) {
-                slot.classList.add("filled");
-                slot.dataset.value = finalValue;
-                slot.dataset.itemId = item.id;
-                slot.querySelector('.slot-content').innerHTML = `<img src="${item.image_url}" alt="${escapeHtml(item.name)}">`;
-                slot.onclick = () => removeItem(slot, grid);
-                updateTotals();
-            }
-
-            function removeItem(slot, grid) {
-                slot.classList.remove("filled");
-                delete slot.dataset.value;
-                delete slot.dataset.itemId;
-                slot.querySelector('.slot-content').innerHTML = '';
-                slot.onclick = null;
-                reorderGrid(grid);
-            }
-
-            function reorderGrid(grid) {
-                const filledData = Array.from(grid.querySelectorAll(".filled")).map(s => ({
-                    value: s.dataset.value,
-                    itemId: s.dataset.itemId,
-                    html: s.querySelector('.slot-content').innerHTML
-                }));
-                buildSlots(grid);
-                const newSlots = grid.children;
-                filledData.forEach((data, i) => {
-                    const slot = newSlots[i];
-                    slot.classList.add('filled');
-                    Object.assign(slot.dataset, { value: data.value, itemId: data.itemId });
-                    slot.querySelector('.slot-content').innerHTML = data.html;
-                    slot.onclick = () => removeItem(slot, grid);
-                });
-                updateAddButton(grid);
-                updateTotals();
-            }
-
-            function updateAddButton(grid) {
-                // Clear any existing add buttons and their listeners
-                const oldAddSlot = Array.from(grid.children).find(slot => slot.querySelector('.add-btn'));
-                if (oldAddSlot) {
-                    oldAddSlot.querySelector('.slot-content').innerHTML = '';
-                    oldAddSlot.onclick = null;
-                }
-
-                const filledCount = grid.querySelectorAll(".filled").length;
-                if (filledCount >= SLOTS_PER_SIDE) return;
-
-                const targetSlot = grid.children[filledCount];
-                if (targetSlot) {
-                    targetSlot.querySelector('.slot-content').innerHTML = `<div class="add-btn">+</div>`;
-                    targetSlot.onclick = () => {
-                        activeGrid = grid;
-                        openDrawer();
+                        renderDrawer();
                     };
-                }
+                    drawer.categories.appendChild(btn);
+                });
+
+                [grids.your, grids.their].forEach(grid => {
+                    grid.innerHTML = '';
+                    for (let i = 0; i < MAX_SLOTS; i++) {
+                        const slot = document.createElement('div');
+                        slot.className = 'slot';
+                        slot.innerHTML = `<div class="slot-content"></div>`;
+                        grid.appendChild(slot);
+                    }
+                    updateAddButtons(grid);
+                });
             }
 
-            function calculateItemValue(item, options) {
-                let value = item.value;
-                // Value from JSON is already correct for regular/neon/mega
-                // We just need to apply fly/ride multipliers
-                if (options) {
-                    if (options.fly) value *= MULTIPLIERS.fly;
-                    if (options.ride) value *= MULTIPLIERS.ride;
-                }
-                return value;
-            }
+            function renderDrawer() {
+                const query = drawer.search.value.toLowerCase();
 
-            function updateTotals() {
-                const yourTotal = sumGridValues(yourGrid);
-                const theirTotal = sumGridValues(theirGrid);
-                yourTotalSpan.textContent = yourTotal.toFixed(2);
-                theirTotalSpan.textContent = theirTotal.toFixed(2);
-                yourScore.textContent = yourTotal.toFixed(2);
-                theirScore.textContent = theirTotal.toFixed(2);
-                updateFairness(yourTotal, theirTotal);
-            }
+                // Filter AND Sort (High to Low by Value)
+                const filtered = allData.filter(item =>
+                    (item.type === activeCategory) &&
+                    (item.name && item.name.toLowerCase().includes(query))
+                ).sort((a, b) => b.value - a.value); // <--- SORT ADDED HERE
 
-            function sumGridValues(grid) {
-                return Array.from(grid.children)
-                    .reduce((total, slot) => total + (parseFloat(slot.dataset.value) || 0), 0);
-            }
-
-            function updateFairness(your, their) {
-                const total = your + their;
-                let pointerPercent = 50;
-                if (total > 0) {
-                    pointerPercent = (their / total) * 100;
-                }
-                pointerPercent = Math.max(2, Math.min(98, pointerPercent));
-                fairPointer.style.left = `${pointerPercent}%`;
-
-                resultIndicator.classList.remove('win', 'lose');
-                if (total === 0) {
-                    resultIndicator.textContent = "FAIR";
+                drawer.items.innerHTML = '';
+                if (filtered.length === 0) {
+                    drawer.items.innerHTML = '<p style="grid-column: 1/-1; color: #999;">No items found.</p>';
                     return;
                 }
-                // Calculate ratio against the higher value for a consistent threshold check
-                const ratio = Math.abs(their - your) / Math.max(your, their, 1);
-                if (ratio <= FAIR_THRESHOLD) {
-                    resultIndicator.textContent = "FAIR";
-                } else if (their > your) {
-                    resultIndicator.textContent = "WIN";
-                    resultIndicator.classList.add('win');
+
+                filtered.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = 'drawer-item';
+                    const displayVal = (item.value || 0).toFixed(2);
+
+                    el.innerHTML = `
+                        <small>${item.name}</small>
+                        <div class="img-wrap">
+                            <img src="${item.image}" alt="${item.name}" loading="lazy">
+                        </div>
+                        <div class="value">${displayVal}</div>
+                    `;
+                    el.onclick = () => selectItem(item);
+                    drawer.items.appendChild(el);
+                });
+            }
+
+            // --- 3. INTERACTIONS ---
+            function setupListeners() {
+                const closeDrawer = () => drawer.overlay.classList.remove('show');
+                drawer.close.onclick = closeDrawer;
+                drawer.overlay.onclick = (e) => { if (e.target === drawer.overlay) closeDrawer(); };
+                drawer.search.oninput = renderDrawer;
+
+                petModal.cancel.onclick = () => petModal.overlay.classList.remove('show');
+                petModal.confirm.onclick = confirmPetOptions;
+
+                qtyModal.cancel.onclick = () => qtyModal.overlay.classList.remove('show');
+                qtyModal.minus.onclick = () => qtyModal.input.value = Math.max(1, qtyModal.input.value - 1);
+                qtyModal.plus.onclick = () => qtyModal.input.value = Math.min(MAX_SLOTS, parseInt(qtyModal.input.value) + 1);
+                qtyModal.confirm.onclick = confirmQuantity;
+            }
+
+            function openDrawer(grid) {
+                activeGrid = grid;
+                drawer.overlay.classList.add('show');
+                renderDrawer();
+            }
+
+            function selectItem(item) {
+                selectedItem = item;
+                drawer.overlay.classList.remove('show');
+
+                if (item.type === 'pets') {
+                    // Reset Modal
+                    document.querySelector('input[name="pet_version"][value="rvalue"]').checked = true;
+                    petModal.flyCheck.checked = false;
+                    petModal.rideCheck.checked = false;
+
+                    petModal.title.textContent = `Options: ${item.name}`;
+                    petModal.overlay.classList.add('show');
                 } else {
-                    resultIndicator.textContent = "LOSE";
-                    resultIndicator.classList.add('lose');
+                    selectedPetConfig = null;
+                    openQtyModal();
                 }
             }
 
-            function escapeHtml(text) {
-                const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-                return String(text).replace(/[&<>"']/g, s => map[s]);
+            function confirmPetOptions() {
+                const version = document.querySelector('input[name="pet_version"]:checked').value;
+                const isFly = petModal.flyCheck.checked;
+                const isRide = petModal.rideCheck.checked;
+
+                selectedPetConfig = { version, isFly, isRide };
+                petModal.overlay.classList.remove('show');
+                openQtyModal();
             }
 
-            // --- START THE APP ---
-            loadData();
+            function openQtyModal() {
+                qtyModal.title.textContent = `Add: ${selectedItem.name}`;
+                qtyModal.input.value = 1;
+                qtyModal.overlay.classList.add('show');
+            }
+
+            function confirmQuantity() {
+                const qty = parseInt(qtyModal.input.value);
+                qtyModal.overlay.classList.remove('show');
+
+                let finalValue = 0;
+                let tagsHTML = '';
+
+                if (selectedPetConfig) {
+                    // Logic for Pets
+                    const { version, isFly, isRide } = selectedPetConfig;
+
+                    // Construct lookup string
+                    // keys format in data.json: "rvalue", "rvalue - ride", "rvalue - fly", "rvalue - fly&ride"
+                    let potionKey = "";
+                    if (isFly && isRide) potionKey = "fly&ride";
+                    else if (isFly) potionKey = "fly";
+                    else if (isRide) potionKey = "ride";
+                    else potionKey = "nopotion";
+
+                    // Key construction
+                    let lookupKey = version;
+                    if (potionKey !== "nopotion") {
+                        lookupKey += ` - ${potionKey}`;
+                    } else {
+                        // If nopotion, try "rvalue - nopotion", else fallback to "rvalue"
+                        if (selectedItem[`${version} - nopotion`] !== undefined) {
+                            lookupKey = `${version} - nopotion`;
+                        }
+                    }
+
+                    // Get Value
+                    if (selectedItem[lookupKey] !== undefined) {
+                        finalValue = selectedItem[lookupKey];
+                    } else if (selectedItem[version] !== undefined) {
+                        finalValue = selectedItem[version];
+                    } else {
+                        finalValue = selectedItem.value || 0;
+                    }
+
+                    // Tags Generation
+                    if (version === 'nvalue') tagsHTML += '<div class="tag neon">N</div>';
+                    if (version === 'mvalue') tagsHTML += '<div class="tag mega">M</div>';
+                    if (isFly) tagsHTML += '<div class="tag fly">F</div>';
+                    if (isRide) tagsHTML += '<div class="tag ride">R</div>';
+
+                } else {
+                    // Non-pet
+                    finalValue = selectedItem.value || 0;
+                }
+
+                addItemsToGrid(activeGrid, selectedItem, finalValue, qty, tagsHTML);
+            }
+
+            function addItemsToGrid(grid, item, value, qty, tagsHTML) {
+                const emptySlots = Array.from(grid.children).filter(s => !s.classList.contains('filled'));
+                const toAdd = Math.min(qty, emptySlots.length);
+
+                for (let i = 0; i < toAdd; i++) {
+                    const slot = emptySlots[i];
+                    slot.classList.add('filled');
+                    slot.dataset.value = value;
+
+                    slot.querySelector('.slot-content').innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="slot-tags">${tagsHTML}</div>
+                    `;
+
+                    slot.onclick = () => {
+                        slot.className = 'slot';
+                        slot.dataset.value = 0;
+                        slot.querySelector('.slot-content').innerHTML = '';
+                        slot.onclick = null;
+                        updateAddButtons(grid);
+                        calculateTotals();
+                    };
+                }
+                updateAddButtons(grid);
+                calculateTotals();
+            }
+
+            function updateAddButtons(grid) {
+                Array.from(grid.children).forEach(slot => {
+                    if (!slot.classList.contains('filled')) {
+                        slot.querySelector('.slot-content').innerHTML = '';
+                        slot.onclick = null;
+                        slot.classList.remove('add-slot-active');
+                    }
+                });
+
+                const firstEmpty = Array.from(grid.children).find(s => !s.classList.contains('filled'));
+                if (firstEmpty) {
+                    firstEmpty.classList.add('add-slot-active');
+                    firstEmpty.querySelector('.slot-content').innerHTML = `<div class="add-btn">+</div>`;
+                    firstEmpty.onclick = () => openDrawer(grid);
+                }
+            }
+
+            // --- 4. CALCULATIONS ---
+            function calculateTotals() {
+                const getSum = (grid) => {
+                    return Array.from(grid.children).reduce((acc, slot) => {
+                        return acc + (parseFloat(slot.dataset.value) || 0);
+                    }, 0);
+                };
+
+                const valYour = getSum(grids.your);
+                const valTheir = getSum(grids.their);
+
+                // Basic Numerical Scores
+                totals.your.textContent = valYour.toFixed(2);
+                totals.their.textContent = valTheir.toFixed(2);
+                scores.your.textContent = valYour.toFixed(2);
+                scores.their.textContent = valTheir.toFixed(2);
+
+                // Update Frost & Shark Values
+                currencies.yourFrost.textContent = (valYour / FROST_VALUE).toFixed(2);
+                currencies.yourShark.textContent = (valYour / SHARK_VALUE).toFixed(2);
+                currencies.theirFrost.textContent = (valTheir / FROST_VALUE).toFixed(2);
+                currencies.theirShark.textContent = (valTheir / SHARK_VALUE).toFixed(2);
+
+                updateFairness(valYour, valTheir);
+            }
+
+            function updateFairness(v1, v2) {
+                const total = v1 + v2;
+                let percent = 50;
+                let status = "FAIR";
+                let statusClass = "";
+
+                if (total > 0) {
+                    percent = (v2 / total) * 100;
+                    percent = Math.max(5, Math.min(95, percent));
+                }
+
+                fairness.pointer.style.left = `${percent}%`;
+
+                if (total === 0) {
+                    status = "FAIR";
+                } else {
+                    const diff = v2 - v1;
+                    const ratio = Math.abs(diff) / Math.max(v1, v2);
+
+                    if (ratio <= FAIR_MARGIN) {
+                        status = "FAIR";
+                    } else if (diff > 0) {
+                        status = "WIN";
+                        statusClass = "win";
+                    } else {
+                        status = "LOSE";
+                        statusClass = "lose";
+                    }
+                }
+
+                fairness.indicator.textContent = status;
+                fairness.indicator.className = `result-indicator ${statusClass}`;
+            }
+
+            // Start
+            init();
         });
     </script>
 </body>
