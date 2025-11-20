@@ -1430,35 +1430,38 @@
         });
         let lastHeight = 0;
 
+        // --- Function to send height to the parent window (e.g., WordPress) ---
         function sendHeight() {
             if (window.parent) {
-                // We measure the wrapper, NOT the body, to avoid margin collapse issues
-                const wrapper = document.getElementById("app-wrapper");
-                const height = wrapper.scrollHeight;
-
-                // Only send message if height changed by more than 2 pixels
-                // This ignores micro-adjustments that cause loops
-                if (Math.abs(height - lastHeight) > 2) {
-                    lastHeight = height;
-                    window.parent.postMessage({ height: height }, "*");
-                }
+                const height = document.body.scrollHeight;
+                window.parent.postMessage(
+                    {
+                        height: height,
+                    },
+                    "*"
+                );
             }
         }
-
+        // --- Logic for Embedding and Dynamic Resizing ---
         document.addEventListener("DOMContentLoaded", () => {
-            // Initial Send
-            sendHeight();
-
-            // Use ResizeObserver instead of MutationObserver
-            // This detects actual size changes, not just code changes
-            const resizeObserver = new ResizeObserver(() => {
-                sendHeight();
+            // Initial animations on page load
+            document.querySelectorAll(".animate__animated").forEach((el, i) => {
+                el.style.animationDelay = `${i * 0.1}s`;
             });
 
-            // Observe the Wrapper
-            resizeObserver.observe(document.getElementById("app-wrapper"));
-        });
+            // Send initial height to parent window
+            sendHeight();
 
+            // Use a MutationObserver to watch for any changes in the page content
+            // and send the new height to the parent window.
+            const observer = new MutationObserver(() => sendHeight());
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                characterData: true,
+            });
+        });
     </script>
 </body>
 
