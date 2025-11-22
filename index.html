@@ -12,19 +12,19 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
 
         :root {
-            --bg-body: #f0f4f8;
-            --primary-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --primary-light: #764ba2;
+            --bg-body: #f8f4f0;
+            --primary-grad: linear-gradient(135deg, #ff8c00 0%, #ff69b4 100%);
+            --primary-light: #ff69b4;
             --accent-cyan: #00cec9;
             --accent-pink: #fd79a8;
             --card-bg: rgba(255, 255, 255, 0.95);
             --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
-            --text-main: #2d3436;
-            --text-light: #636e72;
+            --text-main: #4a4a4a;
+            --text-light: #808080;
             --radius-xl: 28px;
             --radius-md: 18px;
-            --slot-bg: #ffffff;
-            --cols: 4;
+            --slot-bg: #ffe5e5;
+            --cols: 3;
         }
 
         * {
@@ -50,60 +50,11 @@
             height: 100dvh;
         }
 
-        .bg-blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.6;
-        }
-
-        .bg-1 {
-            top: -10%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: #ffeaa7;
-        }
-
-        .bg-2 {
-            bottom: -10%;
-            right: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: #74b9ff;
-        }
-
-        .bg-3 {
-            top: 40%;
-            left: 40%;
-            width: 30vw;
-            height: 30vw;
-            background: #ff7675;
-            opacity: 0.4;
-        }
-
         .wrap {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            padding-bottom: 80px;
-        }
-
-        /* === HEADER === */
-        header {
-            text-align: center;
-            padding: 20px 0 30px;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: clamp(1.8rem, 5vw, 3rem);
-            font-weight: 900;
-            background: linear-gradient(to right, #0984e3, #e84393);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+            /* padding-bottom: 80px; */
         }
 
         /* === SCOREBOARD === */
@@ -112,30 +63,28 @@
             gap: 15px;
             margin-bottom: 25px;
             align-items: stretch;
-        }
-
-        .score-card {
-            flex: 1;
-            background: var(--card-bg);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--card-shadow);
-            padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            display: flex;
             flex-direction: column;
-            justify-content: center;
-            min-width: 0;
         }
 
-        .score-label {
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
             font-size: 0.75rem;
             font-weight: 800;
             color: #b2bec3;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 5px;
-            white-space: nowrap;
+        }
+
+        .meter-labels span {
+            color: #b2bec3;
+        }
+
+        .score-line {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 10px;
         }
 
         .score-val {
@@ -146,55 +95,18 @@
             margin-bottom: 8px;
         }
 
-        .stat-badge {
-            display: inline-block;
-            background: #f1f2f6;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--text-light);
+        .score-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #b2bec3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             white-space: nowrap;
         }
 
-        .fairness-card {
-            flex: 1.4;
-            background: var(--card-bg);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--card-shadow);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-        }
-
-        .result-pill {
-            font-size: clamp(1.2rem, 3vw, 1.6rem);
-            font-weight: 900;
-            padding: 10px 30px;
-            border-radius: 50px;
-            background: #f8f9fa;
-            color: #dfe6e9;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .result-pill.win {
-            background: #00b894;
-            color: #fff;
-        }
-
-        .result-pill.fair {
-            background: #fdcb6e;
-            color: #fff;
-        }
-
-        .result-pill.lose {
-            background: #ff7675;
-            color: #fff;
+        .score-separator {
+            font-size: 1.5rem;
+            color: #b2bec3;
         }
 
         .meter-track {
@@ -230,38 +142,69 @@
             display: flex;
             justify-content: center;
             margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .recommended-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #b2bec3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 10px;
+        }
+
+        .arrow {
+            color: #b2bec3;
         }
 
         .unit-switcher {
-            background: #fff;
+            background: none;
             padding: 5px;
             border-radius: 40px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             display: flex;
             gap: 4px;
+            box-shadow: none;
         }
 
         .unit-btn {
             border: none;
-            background: transparent;
             padding: 8px 20px;
             border-radius: 30px;
             font-weight: 800;
             font-family: inherit;
             font-size: 0.85rem;
-            color: var(--text-light);
+            color: #fff;
             cursor: pointer;
             transition: all 0.2s;
         }
 
+        .unit-btn:hover {
+            opacity: 1 !important;
+            transform: scale(1.05);
+        }
+
+        .unit-btn.shark {
+            background: linear-gradient(135deg, #ff8c00 0%, #ff4500 100%);
+        }
+
+        .unit-btn.frost {
+            background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);
+        }
+
         .unit-btn.active {
-            background: var(--text-main);
-            color: #fff;
+            opacity: 1;
+        }
+
+        .unit-btn:not(.active) {
+            opacity: 0.7;
         }
 
         .trade-row {
             display: flex;
             gap: 20px;
+            align-items: center;
+            justify-content: center;
         }
 
         .trade-panel {
@@ -269,17 +212,8 @@
             background: var(--card-bg);
             border-radius: var(--radius-xl);
             box-shadow: var(--card-shadow);
-            padding: 20px;
+            padding: 10px;
             border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .panel-head {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            font-weight: 800;
-            color: var(--text-main);
-            font-size: 1rem;
         }
 
         .slots-grid {
@@ -292,7 +226,7 @@
             aspect-ratio: 1;
             background: var(--slot-bg);
             border-radius: 14px;
-            border: 2px solid transparent;
+            border: 2px solid #ff69b4;
             position: relative;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -303,9 +237,13 @@
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
         }
 
+        .slot:hover {
+            transform: scale(1.05);
+        }
+
         .slot.empty {
-            background: rgba(255, 255, 255, 0.5);
-            border: 2px dashed #d1d8e0;
+            background: var(--slot-bg);
+            border: 2px solid #ff69b4;
             box-shadow: none;
         }
 
@@ -317,7 +255,7 @@
 
         .slot.filled {
             background: #fff;
-            border: 1px solid #f1f2f6;
+            border: 2px solid #ff69b4;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -398,14 +336,6 @@
             background: #ff7675;
         }
 
-        .panel-foot {
-            margin-top: 15px;
-            text-align: right;
-            font-size: 1rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
         /* === DRAWER / MODAL === */
         .modal-backdrop {
             position: fixed;
@@ -439,11 +369,10 @@
             display: flex;
             overflow: hidden;
             position: relative;
-            /* DEFAULT DESKTOP: SIDEBAR LEFT, GRID RIGHT */
             flex-direction: row;
         }
 
-        /* SIDEBAR (Desktop Default) */
+        /* SIDEBAR */
         .drawer-sidebar {
             width: 250px;
             background: #f8f9fa;
@@ -455,76 +384,13 @@
             flex-shrink: 0;
         }
 
-        /* CONTROLS AREA */
+        /* Rarity Filter Styles */
         .sidebar-controls {
             margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            overflow: auto;
         }
 
-        .sidebar-controls::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* View Toggle */
-        .view-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            font-weight: 800;
-            color: var(--text-light);
-        }
-
-        .switch {
-            position: relative;
-            width: 40px;
-            height: 22px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #dfe6e9;
-            transition: .3s;
-            border-radius: 24px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .3s;
-            border-radius: 50%;
-        }
-
-        input:checked+.slider {
-            background-color: var(--primary-light);
-        }
-
-        input:checked+.slider:before {
-            transform: translateX(18px);
-        }
-
-        /* Rarity Grid (Desktop) */
         .rarity-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -541,6 +407,11 @@
             font-size: 0.7rem;
             color: var(--text-light);
             white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .rarity-btn:hover {
+            background: #f1f2f6;
         }
 
         .rarity-btn.active {
@@ -549,7 +420,7 @@
             border-color: var(--primary-light);
         }
 
-        /* Categories (Desktop) */
+        /* Categories */
         #drawer-categories-list {
             display: flex;
             flex-direction: column;
@@ -569,11 +440,16 @@
             cursor: pointer;
             border-radius: 12px;
             white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #f1f2f6;
         }
 
         .nav-btn.active {
             background: #fff;
-            color: var(--primary-light);
+            color: var(--text-main);
             font-weight: 900;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
@@ -593,10 +469,34 @@
             padding: 15px 20px;
             border-bottom: 1px solid #f1f2f6;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab {
+            background: #dfe6e9;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            color: var(--text-light);
+            border: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .tab:hover {
+            background: #d1d8e0;
+        }
+
+        .tab.active {
+            background: var(--primary-light);
+            color: #fff;
         }
 
         .search-wrap {
             position: relative;
+            flex: 1;
         }
 
         .search-input {
@@ -617,6 +517,15 @@
             color: #b2bec3;
         }
 
+        .clear-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b2bec3;
+            cursor: pointer;
+        }
+
         /* ITEMS GRID */
         .items-grid {
             display: grid;
@@ -627,6 +536,23 @@
             overflow-y: auto;
             flex: 1;
             overscroll-behavior: contain;
+        }
+
+        .items-grid.standard-view {
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 8px;
+        }
+
+        .items-grid.standard-view .item-card {
+            height: 70px;
+            padding: 5px;
+            justify-content: center;
+        }
+
+        .items-grid.standard-view .item-name,
+        .items-grid.standard-view .item-val-badge,
+        .items-grid.standard-view .item-rarity {
+            display: none;
         }
 
         .item-card {
@@ -640,15 +566,17 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            transition: all 0.2s;
+        }
+
+        .item-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .item-card.active {
             border: 2px solid var(--primary-light);
             background: #f8f6fa;
-        }
-
-        .item-card:hover {
-            transform: translateY(-3px);
         }
 
         .item-img-wrap {
@@ -672,7 +600,7 @@
             margin-top: 6px;
             overflow: hidden;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
         }
 
@@ -688,20 +616,34 @@
             border-radius: 5px;
         }
 
-        .items-grid.standard-view {
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 8px;
+        .item-rarity {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 5px;
+            border-radius: 4px;
+            margin-top: 4px;
+            color: #fff;
         }
 
-        .items-grid.standard-view .item-card {
-            height: 70px;
-            padding: 5px;
-            justify-content: center;
+        .item-rarity.common {
+            background: #a0a0a0;
         }
 
-        .items-grid.standard-view .item-name,
-        .items-grid.standard-view .item-val-badge {
-            display: none;
+        .item-rarity.uncommon {
+            background: #4caf50;
+        }
+
+        .item-rarity.rare {
+            background: #2196f3;
+        }
+
+        .item-rarity.ultra-rare {
+            background: #9c27b0;
+        }
+
+        .item-rarity.legendary {
+            background: #ff9800;
         }
 
         .drawer-close {
@@ -720,6 +662,11 @@
             align-items: center;
             justify-content: center;
             z-index: 50;
+            transition: all 0.2s;
+        }
+
+        .drawer-close:hover {
+            background: #dfe6e9;
         }
 
         /* BOTTOM PANEL */
@@ -857,11 +804,16 @@
             font-size: 0.85rem;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(45, 52, 54, 0.2);
+            transition: all 0.2s;
+        }
+
+        .panel-add-btn:hover {
+            transform: scale(1.05);
         }
 
         /* ==========================================================================
-           MOBILE RESPONSIVE LOGIC (The Magic Switch)
-           ========================================================================== */
+   MOBILE RESPONSIVE LOGIC
+   ========================================================================== */
         @media (max-width: 768px) {
             :root {
                 --cols: 3;
@@ -873,22 +825,13 @@
             }
 
             .scoreboard-wrap {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
                 gap: 10px;
             }
 
-            .fairness-card {
-                grid-column: 1 / -1;
-                order: -1;
-                padding: 15px;
-            }
-
             .trade-row {
-                flex-direction: column;
+                flex-direction: row;
             }
 
-            /* 1. Layout Switch: Sidebar goes to TOP */
             .drawer-box {
                 flex-direction: column;
                 width: 100%;
@@ -899,42 +842,31 @@
                 bottom: 0;
             }
 
-            /* 2. Sidebar becomes Horizontal Header */
             .drawer-sidebar {
                 width: 100%;
                 height: auto;
                 flex-direction: column;
-                /* Stack Controls on top of Categories */
                 padding: 10px 15px;
                 border-right: none;
                 border-bottom: 1px solid #f1f2f6;
                 overflow: visible;
-                /* Allow children to scroll horizontally */
             }
 
-            /* 3. Horizontal Rarity Filters */
+            /* Mobile: Controls stack horizontally */
             .sidebar-controls {
                 border: none;
                 margin: 0;
                 padding: 0 0 10px 0;
-                flex-direction: row;
-                align-items: center;
             }
 
-            .view-toggle {
-                display: none;
-                /* Hide toggle on mobile to save space */
-            }
-
+            /* Mobile: Rarity Grid Scroll */
             .rarity-grid {
                 display: flex;
-                /* Switch from Grid to Flex */
                 overflow-x: auto;
                 gap: 8px;
                 width: 100%;
                 padding-bottom: 5px;
                 scrollbar-width: none;
-                /* Hide scrollbar */
             }
 
             .rarity-grid::-webkit-scrollbar {
@@ -948,11 +880,9 @@
                 font-size: 0.8rem;
             }
 
-            /* 4. Horizontal Categories */
             #drawer-categories-list {
                 display: flex;
                 flex-direction: row;
-                /* Horizontal */
                 overflow-x: auto;
                 gap: 8px;
                 width: 100%;
@@ -969,15 +899,15 @@
                 flex-shrink: 0;
                 padding: 8px 16px;
                 border: 1px solid #f1f2f6;
-                background: #fff;
+                background: transparent;
                 border-radius: 20px;
             }
 
             .nav-btn.active {
                 border-color: transparent;
+                background: #fff;
             }
 
-            /* 5. Bottom Panel Stacked */
             .bottom-panel {
                 flex-direction: column;
                 gap: 15px;
@@ -1033,53 +963,51 @@
                 padding-bottom: 250px;
             }
         }
+
+        @media (min-width: 768px) {
+            :root {
+                --cols: 4;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="bg-blob bg-1"></div>
-    <div class="bg-blob bg-2"></div>
-    <div class="bg-blob bg-3"></div>
-
     <div class="wrap">
         <div class="scoreboard-wrap">
-            <div class="score-card">
-                <div class="score-label">You Give</div>
-                <div class="score-val" id="your-score">0.00</div>
-                <div class="stat-badge"><span class="unit-label">Sharks</span>: <b id="your-units">0</b></div>
+            <div class="meter-labels">
+                <span>WIN</span>
+                <span>FAIR</span>
+                <span>LOSE</span>
             </div>
-            <div class="fairness-card">
-                <div class="result-pill fair" id="result-indicator">FAIR</div>
-                <div class="meter-track">
-                    <div class="meter-gradient"></div>
-                    <div class="meter-pointer" id="fair-pointer"></div>
-                </div>
+            <div class="score-line">
+                <span class="score-val" id="your-score">0</span>
+                <span class="score-label">YOUR OFFER</span>
+                <span class="score-separator">|</span>
+                <span class="score-label">THEIR OFFER</span>
+                <span class="score-val" id="their-score">0</span>
             </div>
-            <div class="score-card">
-                <div class="score-label">They Give</div>
-                <div class="score-val" id="their-score">0.00</div>
-                <div class="stat-badge"><span class="unit-label">Sharks</span>: <b id="their-units">0</b></div>
+            <div class="meter-track">
+                <div class="meter-gradient"></div>
+                <div class="meter-pointer" id="fair-pointer"></div>
             </div>
         </div>
 
-        <div class="unit-wrap">
-            <div class="unit-switcher">
-                <button class="unit-btn active" data-unit="shark">Sharks</button>
-                <button class="unit-btn" data-unit="frost">Frosts</button>
-            </div>
-        </div>
 
         <div class="trade-row">
             <div class="trade-panel">
-                <div class="panel-head"><span>Your Offer</span><span>Max 18</span></div>
                 <div class="slots-grid" id="your-grid"></div>
-                <div class="panel-foot">Value: <span id="your-total">0.00</span></div>
             </div>
             <div class="trade-panel">
-                <div class="panel-head"><span>Their Offer</span><span>Max 18</span></div>
                 <div class="slots-grid" id="their-grid"></div>
-                <div class="panel-foot">Value: <span id="their-total">0.00</span></div>
             </div>
+        </div>
+    </div>
+    <div class="unit-wrap">
+        <span class="recommended-label">RECOMMENDED <span class="arrow">→</span></span>
+        <div class="unit-switcher">
+            <button class="unit-btn shark active" data-unit="shark">Shark</button>
+            <button class="unit-btn frost" data-unit="frost">Frost</button>
         </div>
     </div>
 
@@ -1089,26 +1017,18 @@
             <button class="drawer-close" id="drawer-close">&times;</button>
 
             <aside class="drawer-sidebar">
-                <div class="sidebar-controls">
-                    <div class="view-toggle">
-                        <span>Compact</span>
-                        <label class="switch">
-                            <input type="checkbox" id="view-toggle-checkbox">
-                            <span class="slider"></span>
-                        </label>
-                        <span>Detail</span>
-                    </div>
-                    <div class="rarity-filters" id="rarity-filters-container">
-                        <div class="rarity-grid">
-                            <button class="rarity-btn active" data-rarity="all">All</button>
-                            <button class="rarity-btn" data-rarity="legendary">Leg</button>
-                            <button class="rarity-btn" data-rarity="ultra rare">Ultra</button>
-                            <button class="rarity-btn" data-rarity="rare">Rare</button>
-                            <button class="rarity-btn" data-rarity="uncommon">Unc</button>
-                            <button class="rarity-btn" data-rarity="common">Com</button>
-                        </div>
+                <!-- Rarity Filters (Added) -->
+                <div class="sidebar-controls" id="rarity-filters-container">
+                    <div class="rarity-grid">
+                        <button class="rarity-btn active" data-rarity="all">All</button>
+                        <button class="rarity-btn" data-rarity="legendary">Leg</button>
+                        <button class="rarity-btn" data-rarity="ultra-rare">Ultra</button>
+                        <button class="rarity-btn" data-rarity="rare">Rare</button>
+                        <button class="rarity-btn" data-rarity="uncommon">Unc</button>
+                        <button class="rarity-btn" data-rarity="common">Com</button>
                     </div>
                 </div>
+
                 <div id="drawer-categories-list">
                     <!-- Categories injected via JS -->
                 </div>
@@ -1116,9 +1036,12 @@
 
             <div class="drawer-content">
                 <div class="search-area">
+                    <button class="tab active" data-view="standard">Standard</button>
+                    <button class="tab" data-view="detailed">Detailed</button>
                     <div class="search-wrap">
                         <span class="search-icon">🔍</span>
-                        <input type="text" class="search-input" id="drawer-search" placeholder="Search items..." />
+                        <input type="text" class="search-input" id="drawer-search" placeholder="Search..." />
+                        <span class="clear-icon" id="clear-search">×</span>
                     </div>
                 </div>
 
@@ -1161,32 +1084,24 @@
         document.addEventListener("DOMContentLoaded", () => {
             let FROST_VALUE = 160.0;
             let SHARK_VALUE = 1.0;
-            const MAX_SLOTS = 18;
-            let allData = [], categories = [], activeCategory = "", activeGrid = null, selectedItem = null;
+            const MAX_SLOTS = 16;
+            let allData = [], categories = [], activeCategory = "all", activeGrid = null, selectedItem = null;
             let isDetailedView = false;
-            let activeRarity = 'all';
             let currentUnit = 'shark';
+            // NEW: Active Rarity state
+            let activeRarity = 'all';
 
             const dom = {
                 yourGrid: document.getElementById("your-grid"),
                 theirGrid: document.getElementById("their-grid"),
-                yourTotal: document.getElementById("your-total"),
-                theirTotal: document.getElementById("their-total"),
                 yourScore: document.getElementById("your-score"),
                 theirScore: document.getElementById("their-score"),
-                yourUnits: document.getElementById("your-units"),
-                theirUnits: document.getElementById("their-units"),
-                unitLabels: document.querySelectorAll(".unit-label"),
                 fairPointer: document.getElementById("fair-pointer"),
-                fairIndicator: document.getElementById("result-indicator"),
                 drawerOverlay: document.getElementById("drawer-overlay"),
                 drawerItems: document.getElementById("drawer-items"),
                 drawerSearch: document.getElementById("drawer-search"),
                 drawerCats: document.getElementById("drawer-categories-list"),
                 drawerClose: document.getElementById("drawer-close"),
-                viewToggle: document.getElementById("view-toggle-checkbox"),
-                rarityFiltersContainer: document.getElementById("rarity-filters-container"),
-                rarityButtons: document.querySelectorAll(".rarity-btn"),
                 unitButtons: document.querySelectorAll(".unit-btn"),
                 bottomPanel: document.getElementById("bottom-selection-panel"),
                 panelImg: document.getElementById("panel-img"),
@@ -1194,6 +1109,11 @@
                 panelAddBtn: document.getElementById("panel-add-btn"),
                 checkFly: document.getElementById("p_fly"),
                 checkRide: document.getElementById("p_ride"),
+                clearSearch: document.getElementById("clear-search"),
+                viewButtons: document.querySelectorAll(".tab[data-view]"),
+                // NEW: Rarity elements
+                rarityFiltersContainer: document.getElementById("rarity-filters-container"),
+                rarityButtons: document.querySelectorAll(".rarity-btn"),
             };
 
             async function init() {
@@ -1220,9 +1140,9 @@
                 const frost = allData.find(i => i.name === "Frost Dragon");
                 if (frost) FROST_VALUE = frost.rvalue || 160;
 
-                const types = new Set(allData.map(i => i.type).filter(Boolean));
-                categories = Array.from(types).sort((a, b) => a === 'pets' ? -1 : b === 'pets' ? 1 : a.localeCompare(b));
-                activeCategory = categories.length > 0 ? categories[0] : 'pets';
+                const types = Array.from(new Set(allData.map(i => i.type).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+                categories = ['all', ...types];
+                activeCategory = 'all';
 
                 setupUI();
             }
@@ -1232,15 +1152,17 @@
                 categories.forEach(cat => {
                     const btn = document.createElement('button');
                     btn.className = 'nav-btn';
-                    btn.textContent = cat.replace(/_/g, ' ');
+                    btn.textContent = cat === 'all' ? 'All' : cat.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase());
                     if (cat === activeCategory) btn.classList.add('active');
                     btn.onclick = () => {
                         activeCategory = cat;
                         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
 
+                        // Toggle Rarity Visibility: Show if category is 'all' or 'pets'
+                        // (Matching behavior from reference code, usually relevant for pets)
                         if (dom.rarityFiltersContainer) {
-                            dom.rarityFiltersContainer.style.display = (activeCategory === 'pets') ? 'block' : 'none';
+                            dom.rarityFiltersContainer.style.display = (activeCategory === 'pets' || activeCategory === 'all') ? 'block' : 'none';
                         }
 
                         renderDrawerItems();
@@ -1273,8 +1195,12 @@
                 dom.drawerOverlay.onclick = (e) => { if (e.target === dom.drawerOverlay) closeDrawer(); };
                 dom.drawerSearch.oninput = renderDrawerItems;
 
-                dom.viewToggle.onchange = (e) => { isDetailedView = e.target.checked; renderDrawerItems(); };
+                dom.clearSearch.onclick = () => {
+                    dom.drawerSearch.value = '';
+                    renderDrawerItems();
+                };
 
+                // NEW: Rarity Button Logic
                 dom.rarityButtons.forEach(btn => {
                     btn.onclick = () => {
                         dom.rarityButtons.forEach(b => b.classList.remove('active'));
@@ -1283,12 +1209,22 @@
                         renderDrawerItems();
                     };
                 });
+
                 dom.unitButtons.forEach(btn => {
                     btn.onclick = () => {
                         dom.unitButtons.forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
                         currentUnit = btn.dataset.unit;
                         calculate();
+                    };
+                });
+
+                dom.viewButtons.forEach(btn => {
+                    btn.onclick = () => {
+                        dom.viewButtons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        isDetailedView = btn.dataset.view === 'detailed';
+                        renderDrawerItems();
                     };
                 });
 
@@ -1309,10 +1245,20 @@
 
             function renderDrawerItems() {
                 const q = dom.drawerSearch.value.toLowerCase();
-                let filteredData = allData.filter(i => i.type === activeCategory && i.name.toLowerCase().includes(q));
-                if (activeCategory === 'pets' && activeRarity !== 'all') {
-                    filteredData = filteredData.filter(i => i.rarity === activeRarity);
+                let filteredData = allData.filter(i => i.name.toLowerCase().includes(q));
+
+                // Category Filter
+                if (activeCategory !== 'all') {
+                    filteredData = filteredData.filter(i => i.type === activeCategory);
                 }
+
+                // NEW: Rarity Filter Logic
+                // We apply rarity filter if activeRarity is not 'all'.
+                // Note: rarity in data usually matches the button data (legendary, ultra-rare, etc)
+                if (activeRarity !== 'all') {
+                    filteredData = filteredData.filter(i => i.rarity && i.rarity.toLowerCase().replace(' ', '-') === activeRarity);
+                }
+
                 const f = filteredData.sort((a, b) => (b.value || 0) - (a.value || 0));
 
                 dom.drawerItems.innerHTML = '';
@@ -1324,6 +1270,10 @@
                     d.className = 'item-card';
                     let html = `<div class="item-img-wrap"><img src="${item.image}" loading="lazy"></div>`;
                     html += `<div class="item-name">${item.name}</div>`;
+                    if (item.rarity) {
+                        const rarityClass = item.rarity.replace(' ', '-').toLowerCase();
+                        html += `<div class="item-rarity ${rarityClass}">${item.rarity.toUpperCase()}</div>`;
+                    }
                     html += `<div class="item-val-badge">${(item.value || 0).toFixed(1)}</div>`;
                     d.innerHTML = html;
                     d.onclick = () => selectItem(item, d);
@@ -1407,60 +1357,17 @@
             function calculate() {
                 const sum = (g) => Array.from(g.children).reduce((a, b) => a + (parseFloat(b.dataset.value) || 0), 0);
                 const v1 = sum(dom.yourGrid), v2 = sum(dom.theirGrid);
-                dom.yourTotal.textContent = v1.toFixed(2); dom.theirTotal.textContent = v2.toFixed(2);
-                dom.yourScore.textContent = v1.toFixed(2); dom.theirScore.textContent = v2.toFixed(2);
 
                 const unitValue = currentUnit === 'frost' ? FROST_VALUE : SHARK_VALUE;
-                const unitLabel = currentUnit === 'frost' ? 'Frosts' : 'Sharks';
-                dom.yourUnits.textContent = (v1 / unitValue).toFixed(2);
-                dom.theirUnits.textContent = (v2 / unitValue).toFixed(2);
-                dom.unitLabels.forEach(label => label.textContent = unitLabel);
+                dom.yourScore.textContent = (v1 / unitValue).toFixed(0);
+                dom.theirScore.textContent = (v2 / unitValue).toFixed(0);
 
-                const t = v1 + v2; let pct = 50, s = "FAIR", sc = "fair";
+                const t = v1 + v2; let pct = 50;
                 if (t > 0) pct = (v2 / t) * 100; pct = Math.max(5, Math.min(95, pct));
                 dom.fairPointer.style.left = `${pct}%`;
-                if (t > 0) {
-                    const d = v2 - v1, r = Math.abs(d) / Math.max(v1, v2, 1);
-                    if (r > 0.1) { if (d > 0) { s = "WIN"; sc = "win"; } else { s = "LOSE"; sc = "lose"; } }
-                }
-                dom.fairIndicator.textContent = s; dom.fairIndicator.className = `result-pill ${sc}`;
             }
 
             init();
-        });
-        let lastHeight = 0;
-
-        // --- Function to send height to the parent window (e.g., WordPress) ---
-        function sendHeight() {
-            if (window.parent) {
-                const height = document.body.scrollHeight;
-                window.parent.postMessage(
-                    {
-                        height: height,
-                    },
-                    "*"
-                );
-            }
-        }
-        // --- Logic for Embedding and Dynamic Resizing ---
-        document.addEventListener("DOMContentLoaded", () => {
-            // Initial animations on page load
-            document.querySelectorAll(".animate__animated").forEach((el, i) => {
-                el.style.animationDelay = `${i * 0.1}s`;
-            });
-
-            // Send initial height to parent window
-            sendHeight();
-
-            // Use a MutationObserver to watch for any changes in the page content
-            // and send the new height to the parent window.
-            const observer = new MutationObserver(() => sendHeight());
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true,
-                attributes: true,
-                characterData: true,
-            });
         });
     </script>
 </body>
